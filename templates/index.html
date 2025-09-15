@@ -132,6 +132,15 @@
             border-left: 4px solid #3498db;
             transition: all 0.3s ease;
         }
+        .playing-row {
+            background-color: #fff3cd !important;
+            border-left: 4px solid #ffc107;
+            animation: playing-pulse 2s infinite;
+        }
+        @keyframes playing-pulse {
+            0%, 100% { background-color: #fff3cd; }
+            50% { background-color: #ffeaa7; }
+        }
         .thai-text {
             font-size: 1.1em;
             color: #e74c3c;
@@ -183,6 +192,41 @@
             width: 0%;
             transition: width 0.3s ease;
         }
+        .category-playback {
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .category-playback h3 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+        .playback-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .playback-buttons button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        .playback-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -208,7 +252,19 @@
             <button onclick="generateAllAudios()">🔊 Générer Tous les Audios</button>
             <button onclick="regenerateMissingAudios()">🔄 Régénérer Audios Manquants</button>
             <button onclick="playAllAudios()">▶️ Tout Écouter</button>
+            <button onclick="stopPlayback()" id="stopButton" style="display: none;">⏹️ Arrêter</button>
             <button onclick="downloadLexique()">📥 Télécharger CSV</button>
+        </div>
+
+        <div class="category-playback">
+            <h3>🎵 Écouter par Catégorie</h3>
+            <div class="playback-buttons">
+                <button onclick="playAllAudios('noyau')">🟢 Noyau (Base & Survie)</button>
+                <button onclick="playAllAudios('quotidien')">🔵 Quotidien</button>
+                <button onclick="playAllAudios('social')">🟣 Social</button>
+                <button onclick="playAllAudios('travail')">🟠 Travail & Études</button>
+                <button onclick="playAllAudios('special')">🔴 Situations Spéciales</button>
+            </div>
         </div>
 
         <div class="category-filter">
@@ -439,14 +495,38 @@
             alert(`${regenerated} audios ont été régénérés sur ${audioElements.length} contrôles audio vérifiés.`);
         }
 
-        function playAllAudios() {
-            allAudios = Array.from(document.querySelectorAll('audio'));
+        function playAllAudios(category = 'all') {
+            // Filtrer les audios selon la catégorie
+            let allAudioElements;
+            if (category === 'all') {
+                allAudioElements = Array.from(document.querySelectorAll('audio'));
+            } else {
+                // Trouver tous les éléments audio dans les lignes de la catégorie sélectionnée
+                const categoryRows = document.querySelectorAll(`#lexiqueTable tbody tr[data-category="${category}"]`);
+                allAudioElements = [];
+                categoryRows.forEach(row => {
+                    const audios = row.querySelectorAll('audio');
+                    allAudioElements.push(...audios);
+                });
+            }
+
+            allAudios = allAudioElements;
             currentAudioIndex = 0;
 
             if (allAudios.length === 0) {
-                alert('Aucun audio trouvé. Générez d\'abord les audios.');
+                alert(`Aucun audio trouvé pour la catégorie "${category}". Générez d'abord les audios.`);
                 return;
             }
+
+            console.log(`🎵 Lecture de ${allAudios.length} audios ${category === 'all' ? 'de toutes les catégories' : `de la catégorie "${category}"`}`);
+
+            // Afficher le bouton stop et masquer les boutons play
+            document.getElementById('stopButton').style.display = 'inline-block';
+            document.querySelectorAll('.controls button:not(#stopButton)').forEach(btn => {
+                if (btn.textContent.includes('▶️')) {
+                    btn.style.display = 'none';
+                }
+            });
 
             playNextAudio();
         }
@@ -454,14 +534,67 @@
         function playNextAudio() {
             if (currentAudioIndex < allAudios.length) {
                 const audio = allAudios[currentAudioIndex];
+
+                // Afficher des informations sur l'audio en cours
+                const rowElement = audio.closest('tr');
+                const cells = rowElement.querySelectorAll('td');
+                const frenchText = cells[0].querySelector('.text-content').textContent;
+                const category = rowElement.dataset.category;
+
+                console.log(`🎧 Lecture audio ${currentAudioIndex + 1}/${allAudios.length}: "${frenchText}" (${category})`);
+
+                // Mettre en évidence la ligne en cours de lecture
+                document.querySelectorAll('#lexiqueTable tbody tr').forEach(row => {
+                    row.classList.remove('playing-row');
+                });
+                rowElement.classList.add('playing-row');
+
                 audio.play();
                 audio.onended = () => {
                     currentAudioIndex++;
                     setTimeout(playNextAudio, 1000); // Pause de 1 seconde entre les audios
                 };
             } else {
-                alert('Lecture terminée !');
+                // Retirer la mise en évidence et réafficher les boutons
+                document.querySelectorAll('#lexiqueTable tbody tr').forEach(row => {
+                    row.classList.remove('playing-row');
+                });
+                resetPlaybackButtons();
+                alert('Lecture terminée ! 🎉');
             }
+        }
+
+        function stopPlayback() {
+            // Arrêter tous les audios en cours
+            if (allAudios && allAudios.length > 0) {
+                allAudios.forEach(audio => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                });
+            }
+
+            // Retirer la mise en évidence
+            document.querySelectorAll('#lexiqueTable tbody tr').forEach(row => {
+                row.classList.remove('playing-row');
+            });
+
+            // Réinitialiser l'index
+            currentAudioIndex = 0;
+
+            // Réafficher les boutons
+            resetPlaybackButtons();
+
+            console.log('⏹️ Lecture arrêtée par l\'utilisateur');
+        }
+
+        function resetPlaybackButtons() {
+            // Masquer le bouton stop
+            document.getElementById('stopButton').style.display = 'none';
+
+            // Réafficher tous les boutons play
+            document.querySelectorAll('.controls button').forEach(btn => {
+                btn.style.display = 'inline-block';
+            });
         }
 
         function filterByCategory() {
