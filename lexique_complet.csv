@@ -1,14 +1,14 @@
-fr,en,de,es,it,th,phon,category
-Bonjour,Hello,Hallo,Hola,Ciao,สวัสดี,sà-wàt-dii,noyau
-Au revoir,Goodbye,Tschüss,Adiós,Ciao,ลาก่อน,làa-gɔ̀ɔn,noyau
-Merci,Thank you,Danke,Gracias,Grazie,ขอบคุณ,khòp-khun,noyau
-Excusez-moi,Excuse me,Entschuldigung,Disculpe,Scusa,ขอโทษ,khɔ̌ɔ-thôot,noyau
-S'il vous plaît,Please,Bitte,Por favor,Per favore,กรุณา,kru-naa,noyau
-Combien ça coûte ?,How much is it ?,Wie viel kostet das ?,¿Cuánto cuesta ?,Quanto costa ?,ราคาเท่าไร ?,raakhaa thâo-rai ?,noyau
-Où est...,Where is...,Wo ist...,¿Dónde está... ?,Dov'è... ?,...อยู่ที่ไหน ?,... yùu thîi năi ?,noyau
-Je voudrais...,I would like...,Ich möchte...,Me gustaría...,Vorrei...,อยาก...,yàak...,noyau
-Du riz,Rice,Reis,Arroz,Riso,ข้าว,khâao,noyau
-Du poulet,Chicken,Hähnchen,Pollo,Pollo,ไก่,gài,noyau
+fr,en,de,es,it,th,zh,phon,pinyin,category
+Bonjour,Hello,Hallo,Hola,Ciao,สวัสดี,你好,sà-wàt-dii,nǐ hǎo,noyau
+Au revoir,Goodbye,Tschüss,Adiós,Ciao,ลาก่อน,再见,làa-gɔ̀ɔn,zài jiàn,noyau
+Merci,Thank you,Danke,Gracias,Grazie,ขอบคุณ,谢谢,khòp-khun,xiè xiè,noyau
+Excusez-moi,Excuse me,Entschuldigung,Disculpe,Scusa,ขอโทษ,对不起,khɔ̌ɔ-thôot,duì bù qǐ,noyau
+S'il vous plaît,Please,Bitte,Por favor,Per favore,กรุณา,请,kru-naa,qǐng,noyau
+Combien ça coûte ?,How much is it ?,Wie viel kostet das ?,¿Cuánto cuesta ?,Quanto costa ?,ราคาเท่าไร ?,多少钱,raakhaa thâo-rai ?,duō shǎo qián,noyau
+Où est...,Where is...,Wo ist...,¿Dónde está... ?,Dov'è... ?,...อยู่ที่ไหน ?,...在哪里,... yùu thîi năi ?,... zài nǎ lǐ,noyau
+Je voudrais...,I would like...,Ich möchte...,Me gustaría...,Vorrei...,อยาก...,我想,yàak...,wǒ xiǎng,noyau
+Du riz,Rice,Reis,Arroz,Riso,ข้าว,米饭,khâao,mǐ fàn,noyau
+Du poulet,Chicken,Hähnchen,Pollo,Pollo,ไก่,鸡肉,gài,jī ròu,noyau
 De l'eau,Water,Wasser,Agua,Acqua,น้ำ,náam,noyau
 Une bière,Beer,Bier,Cerveza,Birra,เบียร์,bia,noyau
 Un taxi,Taxi,Taxi,Taxi,Taxi,แท็กซี่,thɛ́ɛk-sìi,noyau

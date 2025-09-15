@@ -145,6 +145,20 @@
             font-size: 1.1em;
             color: #e74c3c;
         }
+        .chinese-text {
+            font-size: 1.2em;
+            color: #d63031;
+            font-family: 'Microsoft YaHei', 'SimSun', 'Arial Unicode MS', sans-serif;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #636e72;
+            font-size: 0.85em;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #e9ecef;
+        }
         .english-text {
             font-size: 1.1em;
             color: #6c757d;
@@ -254,12 +268,14 @@
         }
         /* Masquer les colonnes de langues non sélectionnées */
         .lang-fr.hidden, .lang-en.hidden, .lang-de.hidden,
-        .lang-es.hidden, .lang-it.hidden, .lang-th.hidden, .lang-phon.hidden {
+        .lang-es.hidden, .lang-it.hidden, .lang-th.hidden, .lang-zh.hidden,
+        .lang-phon.hidden, .lang-pinyin.hidden {
             display: none;
         }
         /* Masquer les en-têtes correspondants */
         th[data-lang="fr"].hidden, th[data-lang="en"].hidden, th[data-lang="de"].hidden,
-        th[data-lang="es"].hidden, th[data-lang="it"].hidden, th[data-lang="th"].hidden, th[data-lang="phon"].hidden {
+        th[data-lang="es"].hidden, th[data-lang="it"].hidden, th[data-lang="th"].hidden,
+        th[data-lang="zh"].hidden, th[data-lang="phon"].hidden, th[data-lang="pinyin"].hidden {
             display: none;
         }
         .loading {
@@ -342,8 +358,6 @@
         <div class="controls">
             <button onclick="generateAllAudios()">🔊 Générer Tous les Audios</button>
             <button onclick="regenerateMissingAudios()">🔄 Régénérer Audios Manquants</button>
-            <button onclick="checkMissingAudios()">🔍 Diagnostiquer Audios</button>
-            <button onclick="regenerateAllMissingAudios()">⚡ Régénérer Tous Manquants</button>
             <button onclick="playAllAudios()">▶️ Tout Écouter</button>
             <button onclick="stopPlayback()" id="stopButton" style="display: none;">⏹️ Arrêter</button>
             <button onclick="downloadLexique()">📥 Télécharger CSV</button>
@@ -407,9 +421,19 @@
                         🇹🇭 Thaï
                     </label>
                     <label class="checkbox-label">
+                        <input type="checkbox" id="lang-zh" checked onchange="toggleLanguage('zh')">
+                        <span class="checkmark"></span>
+                        🇨🇳 Chinois
+                    </label>
+                    <label class="checkbox-label">
                         <input type="checkbox" id="lang-phon" checked onchange="toggleLanguage('phon')">
                         <span class="checkmark"></span>
                         🔤 Phonétique
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-pinyin" checked onchange="toggleLanguage('pinyin')">
+                        <span class="checkmark"></span>
+                        🗣️ Pinyin
                     </label>
                 </div>
                 <button onclick="resetLanguageSelection()" class="reset-btn">🔄 Réinitialiser</button>
@@ -434,7 +458,9 @@
                     <th data-lang="es">Espagnol</th>
                     <th data-lang="it">Italien</th>
                     <th data-lang="th">Thaï</th>
+                    <th data-lang="zh">Chinois</th>
                     <th data-lang="phon">Phonétique</th>
+                    <th data-lang="pinyin">Pinyin</th>
                 </tr>
             </thead>
             <tbody>
@@ -514,8 +540,24 @@
                             </div>
                         </div>
                     </td>
+                    <td class="language-cell lang-zh">
+                        <div class="text-with-audio">
+                            <div class="text-content chinese-text">{{ entry.get('zh', '-') }}</div>
+                            {% if entry.get('zh_audio') %}
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.zh_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </td>
                     <td class="language-cell lang-phon">
                         <div class="text-content phonetic" id="phonetic-{{ loop.index }}">{{ entry.phon }}</div>
+                    </td>
+                    <td class="language-cell lang-pinyin">
+                        <div class="text-content pinyin">{{ entry.get('pinyin', '-') }}</div>
                     </td>
                 </tr>
                 {% endfor %}
@@ -600,6 +642,9 @@
                     } else if (cellIndex === 5) {
                         text = cells[5].querySelector('.text-content').textContent;
                         lang = 'th';
+                    } else if (cellIndex === 6) {
+                        text = cells[6].querySelector('.text-content').textContent;
+                        lang = 'zh';
                     }
 
                     if (text && lang) {
@@ -689,7 +734,7 @@
         // Obtenir la liste des langues sélectionnées
         function getSelectedLanguages() {
             const selectedLanguages = [];
-            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'zh', 'phon', 'pinyin'];
 
             languages.forEach(lang => {
                 const checkbox = document.getElementById(`lang-${lang}`);
@@ -767,85 +812,6 @@
             });
         }
 
-        async function checkMissingAudios() {
-            try {
-                const response = await fetch('/check_missing_audios');
-                const data = await response.json();
-
-                let message = `📊 Diagnostic des audios:\n`;
-                message += `• Total d'entrées: ${data.total_entries}\n`;
-                message += `• Audios manquants: ${data.missing_audios}\n\n`;
-
-                if (data.missing_audios > 0) {
-                    message += `⚠️ ${data.missing_audios} fichiers audio sont manquants.\n\n`;
-                    message += `Quelques exemples:\n`;
-                    data.missing_details.slice(0, 5).forEach(item => {
-                        message += `• ${item.lang.toUpperCase()}: "${item.text}" (${item.entry_fr})\n`;
-                    });
-
-                    if (data.missing_audios > 5) {
-                        message += `... et ${data.missing_audios - 5} autres\n`;
-                    }
-                } else {
-                    message += `✅ Tous les fichiers audio sont présents !`;
-                }
-
-                alert(message);
-                console.log('🔍 Résultats du diagnostic:', data);
-
-            } catch (error) {
-                console.error('❌ Erreur lors du diagnostic:', error);
-                alert('❌ Erreur lors du diagnostic des audios manquants.');
-            }
-        }
-
-        async function regenerateAllMissingAudios() {
-            if (!confirm('⚠️ Cette opération va régénérer tous les audios manquants. Cela peut prendre du temps. Continuer ?')) {
-                return;
-            }
-
-            const loading = document.getElementById('loading');
-            const progressFill = document.getElementById('progressFill');
-            loading.style.display = 'block';
-            progressFill.style.width = '10%';
-
-            try {
-                const response = await fetch('/regenerate_missing_audios');
-                const data = await response.json();
-
-                progressFill.style.width = '100%';
-
-                let message = `🎵 Régénération terminée:\n`;
-                message += `• Audios régénérés: ${data.regenerated}\n`;
-                message += `• Échecs: ${data.failed}\n\n`;
-
-                if (data.results && data.results.length > 0) {
-                    message += `Résultats récents:\n`;
-                    data.results.forEach(result => {
-                        message += `• ${result}\n`;
-                    });
-                }
-
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    alert(message);
-                    console.log('⚡ Résultats de la régénération:', data);
-
-                    // Recharger la page pour mettre à jour les contrôles audio
-                    if (data.regenerated > 0) {
-                        setTimeout(() => {
-                            location.reload();
-                        }, 2000);
-                    }
-                }, 1000);
-
-            } catch (error) {
-                console.error('❌ Erreur lors de la régénération:', error);
-                loading.style.display = 'none';
-                alert('❌ Erreur lors de la régénération des audios manquants.');
-            }
-        }
-
         function filterByCategory() {
             const category = document.getElementById('category').value;
             const rows = document.querySelectorAll('#lexiqueTable tbody tr');
@@ -877,7 +843,7 @@
 
         // Mettre à jour la visibilité des colonnes de langues
         function updateLanguageVisibility() {
-            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'zh', 'phon', 'pinyin'];
 
             languages.forEach(lang => {
                 const checkbox = document.getElementById(`lang-${lang}`);
@@ -907,7 +873,7 @@
 
         // Réinitialiser la sélection des langues
         function resetLanguageSelection() {
-            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'zh', 'phon', 'pinyin'];
 
             // Cocher toutes les cases
             languages.forEach(lang => {
@@ -929,7 +895,7 @@
         // Charger les préférences depuis localStorage
         function loadLanguagePreferences() {
             const preferences = JSON.parse(localStorage.getItem('languagePreferences') || '{}');
-            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'zh', 'phon', 'pinyin'];
 
             languages.forEach(lang => {
                 const checkbox = document.getElementById(`lang-${lang}`);

@@ -34,7 +34,9 @@ def load_lexique():
                 entry = {
                     "fr": row["fr"],
                     "th": row["th"],
+                    "zh": row.get("zh", ""),
                     "phon": row["phon"],
+                    "pinyin": row.get("pinyin", ""),
                     "fr_audio": f"fr_{fr_hash}.mp3",
                     "th_audio": f"th_{th_hash}.mp3",
                     "category": row.get("category", "other")
@@ -53,6 +55,9 @@ def load_lexique():
                 if "it" in row and row["it"]:
                     entry["it"] = row["it"]
                     entry["it_audio"] = f"it_{it_hash}.mp3"
+                if "zh" in row and row["zh"]:
+                    zh_hash = hashlib.md5((row["zh"] or "").encode()).hexdigest()[:8]
+                    entry["zh_audio"] = f"zh_{zh_hash}.mp3"
 
                 entries.append(entry)
 
@@ -75,7 +80,7 @@ def ensure_audio_exists(entry):
     # Générer l'audio français
     generate_audio(entry["fr"], "fr", entry["fr_audio"])
 
-    # Générer l'audio thaï
+    # Générer l'audio thaï (lent)
     generate_audio(entry["th"], "th", entry["th_audio"])
 
     # Générer les audios pour les langues supplémentaires si elles existent
@@ -87,6 +92,8 @@ def ensure_audio_exists(entry):
         generate_audio(entry["es"], "es", entry["es_audio"])
     if "it_audio" in entry and "it" in entry:
         generate_audio(entry["it"], "it", entry["it_audio"])
+    if "zh_audio" in entry and "zh" in entry:
+        generate_audio(entry["zh"], "zh-cn", entry["zh_audio"])
 
 @app.route("/")
 def index():
@@ -130,81 +137,6 @@ def generate_audio_endpoint():
         return jsonify({"filename": filename, "url": f"/static/audio/{filename}"})
     else:
         return jsonify({"error": "Erreur lors de la génération"}), 500
-
-@app.route("/check_missing_audios")
-def check_missing_audios():
-    """Endpoint pour diagnostiquer les audios manquants"""
-    missing_audios = []
-
-    for entry in entries:
-        # Vérifier chaque langue disponible
-        languages_to_check = [
-            ('fr', entry.get('fr')),
-            ('th', entry.get('th')),
-            ('en', entry.get('en')),
-            ('de', entry.get('de')),
-            ('es', entry.get('es')),
-            ('it', entry.get('it'))
-        ]
-
-        for lang, text in languages_to_check:
-            if text:  # Si le texte existe pour cette langue
-                text_hash = hashlib.md5(text.encode()).hexdigest()[:8]
-                filename = f"{lang}_{text_hash}.mp3"
-                filepath = os.path.join(AUDIO_DIR, filename)
-
-                if not os.path.exists(filepath):
-                    missing_audios.append({
-                        'text': text,
-                        'lang': lang,
-                        'filename': filename,
-                        'entry_fr': entry.get('fr', 'Unknown')
-                    })
-
-    return jsonify({
-        'total_entries': len(entries),
-        'missing_audios': len(missing_audios),
-        'missing_details': missing_audios[:50]  # Limiter à 50 pour éviter les réponses trop longues
-    })
-
-@app.route("/regenerate_missing_audios")
-def regenerate_missing_audios():
-    """Endpoint pour régénérer tous les audios manquants"""
-    regenerated = 0
-    failed = 0
-    results = []
-
-    for entry in entries:
-        # Vérifier chaque langue disponible
-        languages_to_check = [
-            ('fr', entry.get('fr')),
-            ('th', entry.get('th')),
-            ('en', entry.get('en')),
-            ('de', entry.get('de')),
-            ('es', entry.get('es')),
-            ('it', entry.get('it'))
-        ]
-
-        for lang, text in languages_to_check:
-            if text:  # Si le texte existe pour cette langue
-                text_hash = hashlib.md5(text.encode()).hexdigest()[:8]
-                filename = f"{lang}_{text_hash}.mp3"
-                filepath = os.path.join(AUDIO_DIR, filename)
-
-                if not os.path.exists(filepath):
-                    success = generate_audio(text, lang, filename)
-                    if success:
-                        regenerated += 1
-                        results.append(f"✅ {lang}: {text} -> {filename}")
-                    else:
-                        failed += 1
-                        results.append(f"❌ {lang}: {text} -> ÉCHEC")
-
-    return jsonify({
-        'regenerated': regenerated,
-        'failed': failed,
-        'results': results[-20:]  # Montrer les 20 derniers résultats
-    })
 
 @app.route("/static/audio/<path:filename>")
 def serve_audio(filename):
