@@ -92,9 +92,13 @@ def ensure_audio_exists(entry):
 def index():
     """Page principale avec le lexique complet"""
     load_lexique()
-    # Générer les audios pour les premières entrées seulement pour commencer
-    for entry in entries[:20]:  # Commencer avec les 20 premiers mots
+    # Générer tous les audios au démarrage pour éviter les problèmes
+    print(f"🎵 Génération des audios pour {len(entries)} entrées...")
+    for i, entry in enumerate(entries):
+        if i % 50 == 0:  # Afficher la progression tous les 50 éléments
+            print(f"📊 Progression: {i}/{len(entries)} entrées traitées")
         ensure_audio_exists(entry)
+    print("✅ Tous les audios ont été générés!")
     return render_template("index.html", entries=entries)
 
 @app.route("/lecon/<int:start>/<int:end>")
@@ -129,8 +133,43 @@ def generate_audio_endpoint():
 
 @app.route("/static/audio/<path:filename>")
 def serve_audio(filename):
-    """Sert les fichiers audio"""
-    return send_from_directory(AUDIO_DIR, filename)
+    """Sert les fichiers audio avec gestion d'erreur améliorée"""
+    try:
+        return send_from_directory(AUDIO_DIR, filename)
+    except FileNotFoundError:
+        # Si le fichier n'existe pas, essayer de le régénérer
+        print(f"⚠️ Fichier audio manquant: {filename}")
+
+        # Extraire les informations du nom de fichier
+        parts = filename.split('_', 1)
+        if len(parts) == 2:
+            lang = parts[0]
+            hash_part = parts[1].replace('.mp3', '')
+
+            # Chercher l'entrée correspondante dans le lexique
+            load_lexique()  # S'assurer que le lexique est chargé
+            for entry in entries:
+                if lang == 'fr' and entry.get('fr_audio', '').startswith(f'fr_{hash_part}'):
+                    generate_audio(entry['fr'], 'fr', entry['fr_audio'])
+                    return send_from_directory(AUDIO_DIR, filename)
+                elif lang == 'th' and entry.get('th_audio', '').startswith(f'th_{hash_part}'):
+                    generate_audio(entry['th'], 'th', entry['th_audio'])
+                    return send_from_directory(AUDIO_DIR, filename)
+                elif lang == 'en' and entry.get('en_audio', '').startswith(f'en_{hash_part}'):
+                    generate_audio(entry['en'], 'en', entry['en_audio'])
+                    return send_from_directory(AUDIO_DIR, filename)
+                elif lang == 'de' and entry.get('de_audio', '').startswith(f'de_{hash_part}'):
+                    generate_audio(entry['de'], 'de', entry['de_audio'])
+                    return send_from_directory(AUDIO_DIR, filename)
+                elif lang == 'es' and entry.get('es_audio', '').startswith(f'es_{hash_part}'):
+                    generate_audio(entry['es'], 'es', entry['es_audio'])
+                    return send_from_directory(AUDIO_DIR, filename)
+                elif lang == 'it' and entry.get('it_audio', '').startswith(f'it_{hash_part}'):
+                    generate_audio(entry['it'], 'it', entry['it_audio'])
+                    return send_from_directory(AUDIO_DIR, filename)
+
+        # Si on ne peut pas régénérer, retourner une erreur 404
+        return "Audio file not found", 404
 
 if __name__ == "__main__":
     # Vérifier la configuration

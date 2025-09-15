@@ -206,6 +206,7 @@
 
         <div class="controls">
             <button onclick="generateAllAudios()">🔊 Générer Tous les Audios</button>
+            <button onclick="regenerateMissingAudios()">🔄 Régénérer Audios Manquants</button>
             <button onclick="playAllAudios()">▶️ Tout Écouter</button>
             <button onclick="downloadLexique()">📥 Télécharger CSV</button>
         </div>
@@ -357,6 +358,87 @@
             });
         }
 
+        async function regenerateMissingAudios() {
+            const loading = document.getElementById('loading');
+            const progressFill = document.getElementById('progressFill');
+            loading.style.display = 'block';
+
+            const audioElements = document.querySelectorAll('audio');
+            let processed = 0;
+            let regenerated = 0;
+
+            for (const audio of audioElements) {
+                try {
+                    // Essayer de charger l'audio pour voir s'il existe
+                    await new Promise((resolve, reject) => {
+                        const testAudio = new Audio(audio.src);
+                        testAudio.addEventListener('loadeddata', resolve);
+                        testAudio.addEventListener('error', reject);
+                        // Timeout après 2 secondes
+                        setTimeout(reject, 2000);
+                    });
+                } catch (error) {
+                    // L'audio n'existe pas ou n'est pas accessible, régénérer
+                    console.log(`🔄 Régénération nécessaire pour: ${audio.src}`);
+
+                    // Trouver le texte et la langue
+                    const rowElement = audio.closest('tr');
+                    const cells = rowElement.querySelectorAll('td');
+                    let text = '';
+                    let lang = '';
+
+                    // Déterminer la langue selon la colonne
+                    const cellIndex = Array.from(audio.closest('.language-cell').parentElement.children).indexOf(audio.closest('.language-cell'));
+                    if (cellIndex === 0) {
+                        text = cells[0].querySelector('.text-content').textContent;
+                        lang = 'fr';
+                    } else if (cellIndex === 1) {
+                        text = cells[1].querySelector('.text-content').textContent;
+                        lang = 'en';
+                    } else if (cellIndex === 2) {
+                        text = cells[2].querySelector('.text-content').textContent;
+                        lang = 'de';
+                    } else if (cellIndex === 3) {
+                        text = cells[3].querySelector('.text-content').textContent;
+                        lang = 'es';
+                    } else if (cellIndex === 4) {
+                        text = cells[4].querySelector('.text-content').textContent;
+                        lang = 'it';
+                    } else if (cellIndex === 5) {
+                        text = cells[5].querySelector('.text-content').textContent;
+                        lang = 'th';
+                    }
+
+                    if (text && lang) {
+                        try {
+                            const response = await fetch('/generate_audio', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ text: text, lang: lang })
+                            });
+
+                            if (response.ok) {
+                                const data = await response.json();
+                                audio.src = `/static/audio/${data.filename}`;
+                                audio.load();
+                                regenerated++;
+                                console.log(`✅ Audio régénéré: ${text} (${lang})`);
+                            }
+                        } catch (fetchError) {
+                            console.error(`❌ Erreur régénération: ${text} (${lang})`);
+                        }
+                    }
+                }
+
+                processed++;
+                const progress = (processed / audioElements.length) * 100;
+                progressFill.style.width = progress + '%';
+            }
+
+            loading.style.display = 'none';
+            alert(`${regenerated} audios ont été régénérés sur ${audioElements.length} contrôles audio vérifiés.`);
+        }
+
         function playAllAudios() {
             allAudios = Array.from(document.querySelectorAll('audio'));
             currentAudioIndex = 0;
@@ -417,6 +499,34 @@
             }
         }
 
+        // Fonction pour régénérer un audio manuellement
+        async function regenerateAudio(audioElement, text, lang, filename) {
+            try {
+                const response = await fetch('/generate_audio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        lang: lang
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // Mettre à jour la source de l'audio
+                    audioElement.src = `/static/audio/${data.filename}`;
+                    audioElement.load(); // Recharger l'audio
+                    console.log(`✅ Audio régénéré: ${text} (${lang})`);
+                } else {
+                    console.error(`❌ Erreur régénération audio: ${text} (${lang})`);
+                }
+            } catch (error) {
+                console.error(`❌ Erreur réseau: ${error}`);
+            }
+        }
+
         // Fonction pour gérer les événements audio
         function setupAudioListeners() {
             const audioElements = document.querySelectorAll('audio');
@@ -424,6 +534,43 @@
                 // Trouver la ligne parente pour identifier l'index
                 let rowElement = audio.closest('tr');
                 let rowIndex = Array.from(rowElement.parentElement.children).indexOf(rowElement) + 1;
+
+                // Gérer les erreurs de chargement d'audio
+                audio.addEventListener('error', function() {
+                    console.log(`🔄 Régénération audio pour ligne ${rowIndex}`);
+                    // Trouver le texte et la langue depuis la ligne
+                    const cells = rowElement.querySelectorAll('td');
+                    let text = '';
+                    let lang = '';
+
+                    // Déterminer la langue selon la colonne
+                    if (audio.closest('.language-cell')) {
+                        const cellIndex = Array.from(audio.closest('.language-cell').parentElement.children).indexOf(audio.closest('.language-cell'));
+                        if (cellIndex === 0) {
+                            text = cells[0].querySelector('.text-content').textContent;
+                            lang = 'fr';
+                        } else if (cellIndex === 1) {
+                            text = cells[1].querySelector('.text-content').textContent;
+                            lang = 'en';
+                        } else if (cellIndex === 2) {
+                            text = cells[2].querySelector('.text-content').textContent;
+                            lang = 'de';
+                        } else if (cellIndex === 3) {
+                            text = cells[3].querySelector('.text-content').textContent;
+                            lang = 'es';
+                        } else if (cellIndex === 4) {
+                            text = cells[4].querySelector('.text-content').textContent;
+                            lang = 'it';
+                        } else if (cellIndex === 5) {
+                            text = cells[5].querySelector('.text-content').textContent;
+                            lang = 'th';
+                        }
+                    }
+
+                    if (text && lang) {
+                        regenerateAudio(audio, text, lang, audio.src.split('/').pop());
+                    }
+                });
 
                 audio.addEventListener('play', function() {
                     // Surligner la prononciation phonétique thaï
