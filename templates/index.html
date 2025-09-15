@@ -117,6 +117,16 @@
             font-weight: bold;
             animation: phonetic-glow 1.5s infinite alternate;
         }
+
+        .chinese-highlight {
+            background: linear-gradient(45deg, #a29bfe, #fd79a8);
+            border: 2px solid #6c5ce7;
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: white !important;
+            font-weight: bold;
+            animation: chinese-glow 1.5s infinite alternate;
+        }
         @keyframes phonetic-glow {
             0% {
                 background-color: #fff3cd;
@@ -125,6 +135,17 @@
             100% {
                 background-color: #ffeaa7;
                 box-shadow: 0 0 15px #ffc107;
+            }
+        }
+
+        @keyframes chinese-glow {
+            0% {
+                background: linear-gradient(45deg, #a29bfe, #fd79a8);
+                box-shadow: 0 0 5px #6c5ce7;
+            }
+            100% {
+                background: linear-gradient(45deg, #fd79a8, #a29bfe);
+                box-shadow: 0 0 15px #6c5ce7;
             }
         }
         .audio-playing {
@@ -929,6 +950,23 @@
             }
         }
 
+        function highlightChinese(rowIndex, highlight) {
+            // Trouver le texte chinois dans la ligne (7ème colonne)
+            const rows = document.querySelectorAll('#lexiqueTable tbody tr');
+            if (rowIndex < rows.length) {
+                const chineseCell = rows[rowIndex].querySelector('.lang-zh .chinese-text');
+                if (chineseCell) {
+                    if (highlight) {
+                        chineseCell.classList.add('chinese-highlight');
+                        // Faire défiler vers l'élément si nécessaire
+                        chineseCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        chineseCell.classList.remove('chinese-highlight');
+                    }
+                }
+            }
+        }
+
         // Fonction pour régénérer un audio manuellement
         async function regenerateAudio(audioElement, text, lang, filename) {
             try {
@@ -994,6 +1032,9 @@
                         } else if (cellIndex === 5) {
                             text = cells[5].querySelector('.text-content').textContent;
                             lang = 'th';
+                        } else if (cellIndex === 6) {
+                            text = cells[6].querySelector('.text-content').textContent;
+                            lang = 'zh';
                         }
                     }
 
@@ -1003,22 +1044,33 @@
                 });
 
                 audio.addEventListener('play', function() {
-                    // Surligner la prononciation phonétique thaï
-                    highlightPhonetic(rowIndex, true);
+                    // Détecter la langue de l'audio et illuminer le texte approprié
+                    const audioFilename = audio.src.split('/').pop();
+                    if (audioFilename.startsWith('th_')) {
+                        // Audio thaï : illuminer la phonétique
+                        highlightPhonetic(rowIndex, true);
+                    } else if (audioFilename.startsWith('zh_')) {
+                        // Audio chinois : illuminer le texte chinois
+                        highlightChinese(rowIndex, true);
+                    } else {
+                        // Autres langues : pas d'illumination spéciale
+                    }
 
                     // Ajouter un effet visuel à la ligne
                     rowElement.classList.add('audio-playing');
                 });
 
                 audio.addEventListener('pause', function() {
-                    // Retirer le surlignement
+                    // Retirer tous les surlignements
                     highlightPhonetic(rowIndex, false);
+                    highlightChinese(rowIndex, false);
                     rowElement.classList.remove('audio-playing');
                 });
 
                 audio.addEventListener('ended', function() {
-                    // Retirer le surlignement
+                    // Retirer tous les surlignements
                     highlightPhonetic(rowIndex, false);
+                    highlightChinese(rowIndex, false);
                     rowElement.classList.remove('audio-playing');
                 });
             });

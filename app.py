@@ -61,14 +61,32 @@ def load_lexique():
 
                 entries.append(entry)
 
-def generate_audio(text, lang, filename):
+def generate_audio(text, lang, filename, voice_type='male'):
     """Génère un fichier audio si il n'existe pas déjà"""
     filepath = os.path.join(AUDIO_DIR, filename)
     if not os.path.exists(filepath):
         try:
-            tts = gTTS(text=text, lang=lang, slow=False)
+            # Pour le thaï et chinois, utiliser des voix différentes selon le genre
+            if lang == 'th':
+                if voice_type == 'female':
+                    tts = gTTS(text=text, lang=lang, slow=True)  # Voix féminine plus lente
+                    voice_desc = "féminin"
+                else:
+                    tts = gTTS(text=text, lang=lang, slow=False)  # Voix masculine plus rapide
+                    voice_desc = "masculin"
+            elif lang == 'zh-cn':
+                if voice_type == 'female':
+                    tts = gTTS(text=text, lang=lang, slow=False)  # Voix féminine normale
+                    voice_desc = "féminin"
+                else:
+                    tts = gTTS(text=text, lang=lang, slow=False)  # Voix masculine normale
+                    voice_desc = "masculin"
+            else:
+                tts = gTTS(text=text, lang=lang, slow=False)
+                voice_desc = "normal"
+
             tts.save(filepath)
-            print(f"✅ Audio généré: {text} ({lang})")
+            print(f"✅ Audio généré: {text} ({lang} - {voice_desc})")
             return True
         except Exception as e:
             print(f"❌ Erreur lors de la génération audio pour {text} ({lang}): {e}")
