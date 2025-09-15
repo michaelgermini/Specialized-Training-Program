@@ -9,7 +9,7 @@ Un logiciel Python moderne pour apprendre le français-thaï avec génération a
 
 ## 🖼️ Aperçu
 
-![Page d'accueil de l'application](screenshots/home.png)
+screenshots/home.png
 
 *L'interface moderne et intuitive de Specialized-Training-Program*
 
