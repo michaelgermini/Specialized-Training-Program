@@ -127,6 +127,26 @@
             font-weight: bold;
             animation: chinese-glow 1.5s infinite alternate;
         }
+
+        .pinyin-highlight {
+            background: linear-gradient(45deg, #fdcb6e, #e17055);
+            border: 2px solid #d63031;
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: #2d3436 !important;
+            font-weight: bold;
+            animation: pinyin-glow 1.5s infinite alternate;
+        }
+
+        .language-highlight {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            border: 2px solid #0984e3;
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: white !important;
+            font-weight: bold;
+            animation: language-glow 1.5s infinite alternate;
+        }
         @keyframes phonetic-glow {
             0% {
                 background-color: #fff3cd;
@@ -146,6 +166,28 @@
             100% {
                 background: linear-gradient(45deg, #fd79a8, #a29bfe);
                 box-shadow: 0 0 15px #6c5ce7;
+            }
+        }
+
+        @keyframes pinyin-glow {
+            0% {
+                background: linear-gradient(45deg, #fdcb6e, #e17055);
+                box-shadow: 0 0 5px #d63031;
+            }
+            100% {
+                background: linear-gradient(45deg, #e17055, #fdcb6e);
+                box-shadow: 0 0 15px #d63031;
+            }
+        }
+
+        @keyframes language-glow {
+            0% {
+                background: linear-gradient(45deg, #74b9ff, #0984e3);
+                box-shadow: 0 0 5px #0984e3;
+            }
+            100% {
+                background: linear-gradient(45deg, #0984e3, #74b9ff);
+                box-shadow: 0 0 15px #0984e3;
             }
         }
         .audio-playing {
@@ -1028,7 +1070,43 @@
                     console.log('🎵 Audio playing:', audioFilename);
                     console.log('🎯 Row element:', rowElement);
 
-                    if (audioFilename.startsWith('th_')) {
+                    // Illuminer le texte selon la langue de l'audio
+                    if (audioFilename.startsWith('fr_')) {
+                        // Audio français : illuminer le texte français
+                        const frenchElement = rowElement.querySelector('.lang-fr .text-content');
+                        if (frenchElement) {
+                            frenchElement.classList.add('language-highlight');
+                            console.log('✅ French text highlighted');
+                        }
+                    } else if (audioFilename.startsWith('en_')) {
+                        // Audio anglais : illuminer le texte anglais
+                        const englishElement = rowElement.querySelector('.lang-en .text-content');
+                        if (englishElement) {
+                            englishElement.classList.add('language-highlight');
+                            console.log('✅ English text highlighted');
+                        }
+                    } else if (audioFilename.startsWith('de_')) {
+                        // Audio allemand : illuminer le texte allemand
+                        const germanElement = rowElement.querySelector('.lang-de .text-content');
+                        if (germanElement) {
+                            germanElement.classList.add('language-highlight');
+                            console.log('✅ German text highlighted');
+                        }
+                    } else if (audioFilename.startsWith('es_')) {
+                        // Audio espagnol : illuminer le texte espagnol
+                        const spanishElement = rowElement.querySelector('.lang-es .text-content');
+                        if (spanishElement) {
+                            spanishElement.classList.add('language-highlight');
+                            console.log('✅ Spanish text highlighted');
+                        }
+                    } else if (audioFilename.startsWith('it_')) {
+                        // Audio italien : illuminer le texte italien
+                        const italianElement = rowElement.querySelector('.lang-it .text-content');
+                        if (italianElement) {
+                            italianElement.classList.add('language-highlight');
+                            console.log('✅ Italian text highlighted');
+                        }
+                    } else if (audioFilename.startsWith('th_')) {
                         // Audio thaï : illuminer la phonétique dans cette ligne
                         console.log('🔍 Looking for Thai phonetic elements...');
                         const phoneticElement = rowElement.querySelector('.lang-phon .phonetic');
@@ -1048,26 +1126,34 @@
                             }
                         }
                     } else if (audioFilename.startsWith('zh_')) {
-                        // Audio chinois : illuminer le texte chinois dans cette ligne
+                        // Audio chinois : illuminer le texte chinois ET le pinyin
                         console.log('🔍 Looking for Chinese text elements...');
                         const chineseElement = rowElement.querySelector('.lang-zh .chinese-text');
-                        console.log('🔍 Primary chinese selector result:', chineseElement);
+                        const pinyinElement = rowElement.querySelector('.lang-pinyin .pinyin');
+
                         if (chineseElement) {
                             chineseElement.classList.add('chinese-highlight');
                             console.log('✅ Chinese text highlighted');
                         } else {
-                            // Essayer d'autres sélecteurs
                             const altChinese = rowElement.querySelector('.chinese-text');
-                            console.log('🔍 Alternative chinese selector result:', altChinese);
                             if (altChinese) {
                                 altChinese.classList.add('chinese-highlight');
                                 console.log('✅ Chinese text highlighted (alt selector)');
-                            } else {
-                                console.log('❌ No chinese element found in row');
+                            }
+                        }
+
+                        if (pinyinElement) {
+                            pinyinElement.classList.add('pinyin-highlight');
+                            console.log('✅ Pinyin highlighted');
+                        } else {
+                            const altPinyin = rowElement.querySelector('.pinyin');
+                            if (altPinyin) {
+                                altPinyin.classList.add('pinyin-highlight');
+                                console.log('✅ Pinyin highlighted (alt selector)');
                             }
                         }
                     } else {
-                        console.log('ℹ️ Audio is not Thai or Chinese:', audioFilename);
+                        console.log('ℹ️ Unknown audio type:', audioFilename);
                     }
 
                     // Ajouter un effet visuel à la ligne
@@ -1077,20 +1163,24 @@
                 audio.addEventListener('pause', function() {
                     console.log('⏸️ Audio paused');
                     // Retirer tous les surlignements dans cette ligne
-                    const phoneticElements = rowElement.querySelectorAll('.phonetic-highlight, .phonetic');
-                    const chineseElements = rowElement.querySelectorAll('.chinese-highlight, .chinese-text');
-                    phoneticElements.forEach(el => el.classList.remove('phonetic-highlight'));
-                    chineseElements.forEach(el => el.classList.remove('chinese-highlight'));
+                    const allHighlightedElements = rowElement.querySelectorAll(
+                        '.phonetic-highlight, .chinese-highlight, .pinyin-highlight, .language-highlight'
+                    );
+                    allHighlightedElements.forEach(el => {
+                        el.classList.remove('phonetic-highlight', 'chinese-highlight', 'pinyin-highlight', 'language-highlight');
+                    });
                     rowElement.classList.remove('audio-playing');
                 });
 
                 audio.addEventListener('ended', function() {
                     console.log('⏹️ Audio ended');
                     // Retirer tous les surlignements dans cette ligne
-                    const phoneticElements = rowElement.querySelectorAll('.phonetic-highlight, .phonetic');
-                    const chineseElements = rowElement.querySelectorAll('.chinese-highlight, .chinese-text');
-                    phoneticElements.forEach(el => el.classList.remove('phonetic-highlight'));
-                    chineseElements.forEach(el => el.classList.remove('chinese-highlight'));
+                    const allHighlightedElements = rowElement.querySelectorAll(
+                        '.phonetic-highlight, .chinese-highlight, .pinyin-highlight, .language-highlight'
+                    );
+                    allHighlightedElements.forEach(el => {
+                        el.classList.remove('phonetic-highlight', 'chinese-highlight', 'pinyin-highlight', 'language-highlight');
+                    });
                     rowElement.classList.remove('audio-playing');
                 });
             });
