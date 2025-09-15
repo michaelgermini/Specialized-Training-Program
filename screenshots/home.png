@@ -1,15 +1,123 @@
-This is a placeholder file. Replace this with your actual home.png screenshot.
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="headerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
 
-To create the screenshot:
-1. Start the application: python run.py
-2. Open http://127.0.0.1:5001 in your browser
-3. Take a full-page screenshot
-4. Save it as screenshots/home.png
-5. Commit and push the changes
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#ffffff"/>
 
-The screenshot should show:
-- The main interface with the title
-- Statistics cards (321 words, 5 categories, 80% coverage)
-- Sample translation table
-- Audio control buttons
-- Category filters
+  <!-- Browser chrome -->
+  <rect x="0" y="0" width="1200" height="40" fill="#f8f9fa" stroke="#dee2e6"/>
+  <circle cx="25" cy="20" r="8" fill="#dc3545"/>
+  <circle cx="50" cy="20" r="8" fill="#ffc107"/>
+  <circle cx="75" cy="20" r="8" fill="#28a745"/>
+  <rect x="100" y="10" width="400" height="20" fill="#ffffff" stroke="#dee2e6" rx="10"/>
+  <text x="300" y="23" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">http://127.0.0.1:5001</text>
+
+  <!-- Header -->
+  <rect x="0" y="40" width="1200" height="120" fill="url(#headerBg)"/>
+  <text x="600" y="90" font-family="Arial" font-size="36" font-weight="bold" fill="white" text-anchor="middle">📚 Méthode Français-Thaï Moderne</text>
+  <text x="600" y="115" font-family="Arial" font-size="16" fill="white" opacity="0.9" text-anchor="middle">Application Web Interactive d'Apprentissage des Langues</text>
+
+  <!-- Main container -->
+  <rect x="50" y="180" width="1100" height="580" fill="white" stroke="#dee2e6" rx="15"/>
+
+  <!-- Title -->
+  <text x="100" y="220" font-family="Arial" font-size="24" font-weight="bold" fill="#2c3e50">Interface Principale</text>
+
+  <!-- Stats cards -->
+  <rect x="100" y="250" width="180" height="120" fill="url(#cardBg)" stroke="#dee2e6" rx="10"/>
+  <text x="190" y="285" font-family="Arial" font-size="36" font-weight="bold" fill="#3498db" text-anchor="middle">321</text>
+  <text x="190" y="310" font-family="Arial" font-size="14" fill="#6c757d" text-anchor="middle">Mots/Phrases</text>
+  <text x="190" y="330" font-family="Arial" font-size="12" fill="#adb5bd" text-anchor="middle">dans le lexique</text>
+
+  <rect x="320" y="250" width="180" height="120" fill="url(#cardBg)" stroke="#dee2e6" rx="10"/>
+  <text x="410" y="285" font-family="Arial" font-size="36" font-weight="bold" fill="#e74c3c" text-anchor="middle">5</text>
+  <text x="410" y="310" font-family="Arial" font-size="14" fill="#6c757d" text-anchor="middle">Catégories</text>
+  <text x="410" y="330" font-family="Arial" font-size="12" fill="#adb5bd" text-anchor="middle">thématiques</text>
+
+  <rect x="540" y="250" width="180" height="120" fill="url(#cardBg)" stroke="#dee2e6" rx="10"/>
+  <text x="630" y="285" font-family="Arial" font-size="36" font-weight="bold" fill="#28a745" text-anchor="middle">80%</text>
+  <text x="630" y="310" font-family="Arial" font-size="14" fill="#6c757d" text-anchor="middle">Couverture</text>
+  <text x="630" y="330" font-family="Arial" font-size="12" fill="#adb5bd" text-anchor="middle">conversationnelle</text>
+
+  <rect x="760" y="250" width="180" height="120" fill="url(#cardBg)" stroke="#dee2e6" rx="10"/>
+  <text x="850" y="285" font-family="Arial" font-size="36" font-weight="bold" fill="#9b59b6" text-anchor="middle">4</text>
+  <text x="850" y="310" font-family="Arial" font-size="14" fill="#6c757d" text-anchor="middle">Langues</text>
+  <text x="850" y="330" font-family="Arial" font-size="12" fill="#adb5bd" text-anchor="middle">supportées</text>
+
+  <!-- Controls -->
+  <text x="100" y="410" font-family="Arial" font-size="18" font-weight="bold" fill="#2c3e50">Contrôles Audio</text>
+
+  <rect x="100" y="430" width="120" height="40" fill="#3498db" rx="8"/>
+  <text x="160" y="453" font-family="Arial" font-size="14" fill="white" text-anchor="middle">🔊 Écouter Tout</text>
+
+  <rect x="250" y="430" width="120" height="40" fill="#2ecc71" rx="8"/>
+  <text x="310" y="453" font-family="Arial" font-size="14" fill="white" text-anchor="middle">📚 Mode Leçon</text>
+
+  <rect x="400" y="430" width="140" height="40" fill="#f39c12" rx="8"/>
+  <text x="470" y="453" font-family="Arial" font-size="14" fill="white" text-anchor="middle">📥 Télécharger CSV</text>
+
+  <!-- Sample translations table -->
+  <text x="100" y="500" font-family="Arial" font-size="18" font-weight="bold" fill="#2c3e50">Exemples de Traductions</text>
+
+  <rect x="100" y="520" width="1000" height="180" fill="#f8f9fa" stroke="#dee2e6" rx="8"/>
+
+  <!-- Table header -->
+  <rect x="100" y="520" width="1000" height="30" fill="#e9ecef" stroke="#dee2e6"/>
+  <text x="200" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#495057">Français</text>
+  <text x="400" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#495057">Anglais</text>
+  <text x="600" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#495057">Allemand</text>
+  <text x="800" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#495057">Thaï</text>
+  <text x="950" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#495057">Phonétique</text>
+
+  <!-- Table rows -->
+  <line x1="100" y1="550" x2="1100" y2="550" stroke="#dee2e6"/>
+  <text x="200" y="575" font-family="Arial" font-size="13" fill="#212529">Bonjour</text>
+  <text x="400" y="575" font-family="Arial" font-size="13" fill="#6c757d">Hello</text>
+  <text x="600" y="575" font-family="Arial" font-size="13" fill="#dc3545">Hallo</text>
+  <text x="800" y="575" font-family="Arial" font-size="13" fill="#e74c3c">สวัสดีครับ</text>
+  <text x="950" y="575" font-family="Arial" font-size="13" fill="#17a2b8">sà-wàt-dii khráp</text>
+
+  <line x1="100" y1="590" x2="1100" y2="590" stroke="#dee2e6"/>
+  <text x="200" y="615" font-family="Arial" font-size="13" fill="#212529">Merci</text>
+  <text x="400" y="615" font-family="Arial" font-size="13" fill="#6c757d">Thank you</text>
+  <text x="600" y="615" font-family="Arial" font-size="13" fill="#dc3545">Danke</text>
+  <text x="800" y="615" font-family="Arial" font-size="13" fill="#e74c3c">ขอบคุณครับ</text>
+  <text x="950" y="615" font-family="Arial" font-size="13" fill="#17a2b8">khòp-khun khráp</text>
+
+  <line x1="100" y1="630" x2="1100" y2="630" stroke="#dee2e6"/>
+  <text x="200" y="655" font-family="Arial" font-size="13" fill="#212529">Au revoir</text>
+  <text x="400" y="655" font-family="Arial" font-size="13" fill="#6c757d">Goodbye</text>
+  <text x="600" y="655" font-family="Arial" font-size="13" fill="#dc3545">Auf Wiedersehen</text>
+  <text x="800" y="655" font-family="Arial" font-size="13" fill="#e74c3c">ลาก่อน</text>
+  <text x="950" y="655" font-family="Arial" font-size="13" fill="#17a2b8">laa-gɔ̀ɔn</text>
+
+  <!-- Footer -->
+  <rect x="0" y="760" width="1200" height="40" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="600" y="785" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Specialized-Training-Program v1.2.0 - Michael Germini - Généré automatiquement</text>
+
+  <!-- Category filters -->
+  <text x="100" y="720" font-family="Arial" font-size="14" font-weight="bold" fill="#2c3e50">Filtrage par Catégorie :</text>
+  <rect x="250" y="705" width="80" height="25" fill="#667eea" rx="12"/>
+  <text x="290" y="722" font-family="Arial" font-size="12" fill="white" text-anchor="middle">🔹 Noyau</text>
+
+  <rect x="340" y="705" width="80" height="25" fill="#764ba2" rx="12"/>
+  <text x="380" y="722" font-family="Arial" font-size="12" fill="white" text-anchor="middle">🔵 Quotidien</text>
+
+  <rect x="430" y="705" width="80" height="25" fill="#f093fb" rx="12"/>
+  <text x="470" y="722" font-family="Arial" font-size="12" fill="white" text-anchor="middle">🟣 Social</text>
+
+  <rect x="520" y="705" width="80" height="25" fill="#4facfe" rx="12"/>
+  <text x="560" y="722" font-family="Arial" font-size="12" fill="white" text-anchor="middle">🟠 Travail</text>
+
+  <rect x="610" y="705" width="80" height="25" fill="#43e97b" rx="12"/>
+  <text x="650" y="722" font-family="Arial" font-size="12" fill="white" text-anchor="middle">🔴 Spécial</text>
+</svg>
