@@ -969,9 +969,17 @@
         // Fonction pour gérer les événements audio
         function setupAudioListeners() {
             const audioElements = document.querySelectorAll('audio');
+            console.log(`🎵 Found ${audioElements.length} audio elements`);
             audioElements.forEach((audio, index) => {
+                console.log(`🎵 Processing audio ${index + 1}/${audioElements.length}: ${audio.src}`);
                 // Trouver la ligne parente pour identifier l'index
                 let rowElement = audio.closest('tr');
+                if (!rowElement) {
+                    console.log(`❌ No row element found for audio ${index}`);
+                    return;
+                }
+                console.log(`🎯 Found row element for audio ${index}`);
+
                 let rowIndex = Array.from(rowElement.parentElement.children).indexOf(rowElement) + 1;
 
                 // Gérer les erreurs de chargement d'audio
@@ -1018,21 +1026,48 @@
                     // Détecter la langue de l'audio et illuminer le texte approprié
                     const audioFilename = audio.src.split('/').pop();
                     console.log('🎵 Audio playing:', audioFilename);
+                    console.log('🎯 Row element:', rowElement);
 
                     if (audioFilename.startsWith('th_')) {
                         // Audio thaï : illuminer la phonétique dans cette ligne
+                        console.log('🔍 Looking for Thai phonetic elements...');
                         const phoneticElement = rowElement.querySelector('.lang-phon .phonetic');
+                        console.log('🔍 Primary phonetic selector result:', phoneticElement);
                         if (phoneticElement) {
                             phoneticElement.classList.add('phonetic-highlight');
                             console.log('✅ Thaï phonetic highlighted');
+                        } else {
+                            // Essayer d'autres sélecteurs
+                            const altPhonetic = rowElement.querySelector('.phonetic');
+                            console.log('🔍 Alternative phonetic selector result:', altPhonetic);
+                            if (altPhonetic) {
+                                altPhonetic.classList.add('phonetic-highlight');
+                                console.log('✅ Thaï phonetic highlighted (alt selector)');
+                            } else {
+                                console.log('❌ No phonetic element found in row');
+                            }
                         }
                     } else if (audioFilename.startsWith('zh_')) {
                         // Audio chinois : illuminer le texte chinois dans cette ligne
+                        console.log('🔍 Looking for Chinese text elements...');
                         const chineseElement = rowElement.querySelector('.lang-zh .chinese-text');
+                        console.log('🔍 Primary chinese selector result:', chineseElement);
                         if (chineseElement) {
                             chineseElement.classList.add('chinese-highlight');
                             console.log('✅ Chinese text highlighted');
+                        } else {
+                            // Essayer d'autres sélecteurs
+                            const altChinese = rowElement.querySelector('.chinese-text');
+                            console.log('🔍 Alternative chinese selector result:', altChinese);
+                            if (altChinese) {
+                                altChinese.classList.add('chinese-highlight');
+                                console.log('✅ Chinese text highlighted (alt selector)');
+                            } else {
+                                console.log('❌ No chinese element found in row');
+                            }
                         }
+                    } else {
+                        console.log('ℹ️ Audio is not Thai or Chinese:', audioFilename);
                     }
 
                     // Ajouter un effet visuel à la ligne
@@ -1040,20 +1075,22 @@
                 });
 
                 audio.addEventListener('pause', function() {
+                    console.log('⏸️ Audio paused');
                     // Retirer tous les surlignements dans cette ligne
-                    const phoneticElement = rowElement.querySelector('.phonetic-highlight');
-                    const chineseElement = rowElement.querySelector('.chinese-highlight');
-                    if (phoneticElement) phoneticElement.classList.remove('phonetic-highlight');
-                    if (chineseElement) chineseElement.classList.remove('chinese-highlight');
+                    const phoneticElements = rowElement.querySelectorAll('.phonetic-highlight, .phonetic');
+                    const chineseElements = rowElement.querySelectorAll('.chinese-highlight, .chinese-text');
+                    phoneticElements.forEach(el => el.classList.remove('phonetic-highlight'));
+                    chineseElements.forEach(el => el.classList.remove('chinese-highlight'));
                     rowElement.classList.remove('audio-playing');
                 });
 
                 audio.addEventListener('ended', function() {
+                    console.log('⏹️ Audio ended');
                     // Retirer tous les surlignements dans cette ligne
-                    const phoneticElement = rowElement.querySelector('.phonetic-highlight');
-                    const chineseElement = rowElement.querySelector('.chinese-highlight');
-                    if (phoneticElement) phoneticElement.classList.remove('phonetic-highlight');
-                    if (chineseElement) chineseElement.classList.remove('chinese-highlight');
+                    const phoneticElements = rowElement.querySelectorAll('.phonetic-highlight, .phonetic');
+                    const chineseElements = rowElement.querySelectorAll('.chinese-highlight, .chinese-text');
+                    phoneticElements.forEach(el => el.classList.remove('phonetic-highlight'));
+                    chineseElements.forEach(el => el.classList.remove('chinese-highlight'));
                     rowElement.classList.remove('audio-playing');
                 });
             });
