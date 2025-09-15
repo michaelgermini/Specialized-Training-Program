@@ -1116,34 +1116,25 @@
                             console.log('✅ Italian text highlighted');
                         }
                     } else if (audioFilename.startsWith('th_')) {
-                        // Audio thaï : illuminer la phonétique dans cette ligne
-                        console.log('🔍 Looking for Thai phonetic elements...');
-                        const phoneticElement = rowElement.querySelector('.lang-phon .phonetic');
-                        console.log('🔍 Primary phonetic selector result:', phoneticElement);
-                        console.log('🔍 Phonetic element text:', phoneticElement ? phoneticElement.textContent : 'N/A');
-                        if (phoneticElement) {
-                            phoneticElement.classList.add('phonetic-highlight');
-                            console.log('✅ Thaï phonetic highlighted');
-                            console.log('✅ Phonetic element classes after:', phoneticElement.className);
+                        // Audio thaï : illuminer le texte thaï dans cette ligne
+                        console.log('🔍 Looking for Thai text elements...');
+                        const thaiElement = rowElement.querySelector('.lang-th .thai-text');
+                        console.log('🔍 Thai element found:', thaiElement);
+                        console.log('🔍 Thai element text:', thaiElement ? thaiElement.textContent : 'N/A');
+                        if (thaiElement) {
+                            thaiElement.classList.add('language-highlight');
+                            console.log('✅ Thaï text highlighted');
+                            console.log('✅ Thai element classes after:', thaiElement.className);
                         } else {
                             // Essayer d'autres sélecteurs
-                            const altPhonetic = rowElement.querySelector('.phonetic');
-                            console.log('🔍 Alternative phonetic selector result:', altPhonetic);
-                            console.log('🔍 Alt phonetic element text:', altPhonetic ? altPhonetic.textContent : 'N/A');
-                            if (altPhonetic) {
-                                altPhonetic.classList.add('phonetic-highlight');
-                                console.log('✅ Thaï phonetic highlighted (alt selector)');
-                                console.log('✅ Alt phonetic element classes after:', altPhonetic.className);
+                            const altThai = rowElement.querySelector('.thai-text');
+                            console.log('🔍 Alternative thai selector result:', altThai);
+                            if (altThai) {
+                                altThai.classList.add('language-highlight');
+                                console.log('✅ Thaï text highlighted (alt selector)');
+                                console.log('✅ Alt thai element classes after:', altThai.className);
                             } else {
-                                console.log('❌ No phonetic element found in row');
-                                // Lister tous les éléments qui pourraient contenir du texte phonétique
-                                const allTextElements = rowElement.querySelectorAll('*');
-                                console.log('🔍 All text elements in row:');
-                                allTextElements.forEach((el, i) => {
-                                    if (el.textContent && el.textContent.trim()) {
-                                        console.log(`  ${i}: ${el.tagName}.${el.className} = "${el.textContent.trim()}"`);
-                                    }
-                                });
+                                console.log('❌ No thai element found in row');
                             }
                         }
                     } else if (audioFilename.startsWith('zh_')) {
@@ -1200,10 +1191,10 @@
                     console.log('⏸️ Audio paused');
                     // Retirer tous les surlignements dans cette ligne
                     const allHighlightedElements = rowElement.querySelectorAll(
-                        '.phonetic-highlight, .chinese-highlight, .pinyin-highlight, .language-highlight'
+                        '.language-highlight, .chinese-highlight, .pinyin-highlight'
                     );
                     allHighlightedElements.forEach(el => {
-                        el.classList.remove('phonetic-highlight', 'chinese-highlight', 'pinyin-highlight', 'language-highlight');
+                        el.classList.remove('language-highlight', 'chinese-highlight', 'pinyin-highlight');
                     });
                     rowElement.classList.remove('audio-playing');
                 });
@@ -1212,10 +1203,10 @@
                     console.log('⏹️ Audio ended');
                     // Retirer tous les surlignements dans cette ligne
                     const allHighlightedElements = rowElement.querySelectorAll(
-                        '.phonetic-highlight, .chinese-highlight, .pinyin-highlight, .language-highlight'
+                        '.language-highlight, .chinese-highlight, .pinyin-highlight'
                     );
                     allHighlightedElements.forEach(el => {
-                        el.classList.remove('phonetic-highlight', 'chinese-highlight', 'pinyin-highlight', 'language-highlight');
+                        el.classList.remove('language-highlight', 'chinese-highlight', 'pinyin-highlight');
                     });
                     rowElement.classList.remove('audio-playing');
                 });
