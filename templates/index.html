@@ -101,6 +101,14 @@
             font-size: 1.1em;
             color: #dc3545;
         }
+        .spanish-text {
+            font-size: 1.1em;
+            color: #fd7e14;
+        }
+        .italian-text {
+            font-size: 1.1em;
+            color: #20c997;
+        }
         .category-filter {
             margin-bottom: 20px;
             text-align: center;
@@ -186,12 +194,16 @@
                     <th>Français</th>
                     <th>Anglais</th>
                     <th>Allemand</th>
+                    <th>Espagnol</th>
+                    <th>Italien</th>
                     <th>Thaï</th>
                     <th>Phonétique</th>
                     <th>Audio FR</th>
                     <th>Audio TH</th>
                     <th>Audio EN</th>
                     <th>Audio DE</th>
+                    <th>Audio ES</th>
+                    <th>Audio IT</th>
                 </tr>
             </thead>
             <tbody>
@@ -200,6 +212,8 @@
                     <td>{{ entry.fr }}</td>
                     <td class="english-text">{{ entry.get('en', '-') }}</td>
                     <td class="german-text">{{ entry.get('de', '-') }}</td>
+                    <td class="spanish-text">{{ entry.get('es', '-') }}</td>
+                    <td class="italian-text">{{ entry.get('it', '-') }}</td>
                     <td class="thai-text">{{ entry.th }}</td>
                     <td class="phonetic">{{ entry.phon }}</td>
                     <td class="audio-cell">
@@ -228,6 +242,26 @@
                         {% if entry.get('de_audio') %}
                         <audio controls preload="none">
                             <source src="{{ url_for('serve_audio', filename=entry.de_audio) }}" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td class="audio-cell">
+                        {% if entry.get('es_audio') %}
+                        <audio controls preload="none">
+                            <source src="{{ url_for('serve_audio', filename=entry.es_audio) }}" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td class="audio-cell">
+                        {% if entry.get('it_audio') %}
+                        <audio controls preload="none">
+                            <source src="{{ url_for('serve_audio', filename=entry.it_audio) }}" type="audio/mpeg">
                             Votre navigateur ne supporte pas l'audio.
                         </audio>
                         {% else %}

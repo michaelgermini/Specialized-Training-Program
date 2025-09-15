@@ -28,6 +28,8 @@ def load_lexique():
                 th_hash = hashlib.md5(row["th"].encode()).hexdigest()[:8]
                 en_hash = hashlib.md5(row.get("en", "").encode()).hexdigest()[:8] if row.get("en") else ""
                 de_hash = hashlib.md5(row.get("de", "").encode()).hexdigest()[:8] if row.get("de") else ""
+                es_hash = hashlib.md5(row.get("es", "").encode()).hexdigest()[:8] if row.get("es") else ""
+                it_hash = hashlib.md5(row.get("it", "").encode()).hexdigest()[:8] if row.get("it") else ""
 
                 entry = {
                     "fr": row["fr"],
@@ -45,6 +47,12 @@ def load_lexique():
                 if "de" in row and row["de"]:
                     entry["de"] = row["de"]
                     entry["de_audio"] = f"de_{de_hash}.mp3"
+                if "es" in row and row["es"]:
+                    entry["es"] = row["es"]
+                    entry["es_audio"] = f"es_{es_hash}.mp3"
+                if "it" in row and row["it"]:
+                    entry["it"] = row["it"]
+                    entry["it_audio"] = f"it_{it_hash}.mp3"
 
                 entries.append(entry)
 
@@ -75,6 +83,10 @@ def ensure_audio_exists(entry):
         generate_audio(entry["en"], "en", entry["en_audio"])
     if "de_audio" in entry and "de" in entry:
         generate_audio(entry["de"], "de", entry["de_audio"])
+    if "es_audio" in entry and "es" in entry:
+        generate_audio(entry["es"], "es", entry["es_audio"])
+    if "it_audio" in entry and "it" in entry:
+        generate_audio(entry["it"], "it", entry["it_audio"])
 
 @app.route("/")
 def index():

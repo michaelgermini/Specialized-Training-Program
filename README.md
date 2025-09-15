@@ -15,7 +15,7 @@ Un logiciel Python moderne pour apprendre le français-thaï avec génération a
 
 ## ✨ Fonctionnalités
 
-- **🎵 Génération automatique d'audios** : Création d'audios pour le français, thaï, anglais et allemand
+- **🎵 Génération automatique d'audios** : Création d'audios pour le français, thaï, anglais, allemand, espagnol et italien
 - **📖 Lexique structuré** : 321 mots/phrases organisés en 5 catégories thématiques
 - **🌐 Interface web moderne** : Design responsive avec contrôles audio intégrés
 - **📚 Mode leçon** : Apprentissage progressif avec exercices interactifs
@@ -174,7 +174,7 @@ CMD ["python", "app.py"]
 ## 📈 Statistiques
 
 - **Total de mots/phrases** : 200+
-- **Langues supportées** : Français, Anglais, Allemand, Thaï
+- **Langues supportées** : Français, Anglais, Allemand, Espagnol, Italien, Thaï
 - **Catégories** : 5 thèmes principaux
 - **Couverture conversationnelle** : ~80% des situations quotidiennes
 - **Temps de génération** : ~2-3 minutes pour tous les audios
