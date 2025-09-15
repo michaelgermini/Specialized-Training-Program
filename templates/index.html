@@ -68,6 +68,7 @@
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            vertical-align: top;
         }
         th {
             background-color: #f8f9fa;
@@ -77,12 +78,29 @@
         tr:hover {
             background-color: #f8f9fa;
         }
-        .audio-cell {
+        .language-cell {
+            padding: 10px;
+            min-width: 120px;
+        }
+        .text-with-audio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .text-content {
+            font-weight: 500;
             text-align: center;
         }
         audio {
             width: 100px;
-            height: 35px;
+            height: 25px;
+            border-radius: 3px;
+        }
+        .audio-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
         }
         .phonetic {
             font-style: italic;
@@ -198,75 +216,87 @@
                     <th>Italien</th>
                     <th>Thaï</th>
                     <th>Phonétique</th>
-                    <th>Audio FR</th>
-                    <th>Audio TH</th>
-                    <th>Audio EN</th>
-                    <th>Audio DE</th>
-                    <th>Audio ES</th>
-                    <th>Audio IT</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entry in entries %}
                 <tr data-category="{{ entry.category or 'other' }}">
-                    <td>{{ entry.fr }}</td>
-                    <td class="english-text">{{ entry.get('en', '-') }}</td>
-                    <td class="german-text">{{ entry.get('de', '-') }}</td>
-                    <td class="spanish-text">{{ entry.get('es', '-') }}</td>
-                    <td class="italian-text">{{ entry.get('it', '-') }}</td>
-                    <td class="thai-text">{{ entry.th }}</td>
-                    <td class="phonetic">{{ entry.phon }}</td>
-                    <td class="audio-cell">
-                        <audio controls preload="none">
-                            <source src="{{ url_for('serve_audio', filename=entry.fr_audio) }}" type="audio/mpeg">
-                            Votre navigateur ne supporte pas l'audio.
-                        </audio>
+                    <td class="language-cell">
+                        <div class="text-with-audio">
+                            <div class="text-content">{{ entry.fr }}</div>
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.fr_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                        </div>
                     </td>
-                    <td class="audio-cell">
-                        <audio controls preload="none">
-                            <source src="{{ url_for('serve_audio', filename=entry.th_audio) }}" type="audio/mpeg">
-                            Votre navigateur ne supporte pas l'audio.
-                        </audio>
+                    <td class="language-cell">
+                        <div class="text-with-audio">
+                            <div class="text-content english-text">{{ entry.get('en', '-') }}</div>
+                            {% if entry.get('en_audio') %}
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.en_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                            {% endif %}
+                        </div>
                     </td>
-                    <td class="audio-cell">
-                        {% if entry.get('en_audio') %}
-                        <audio controls preload="none">
-                            <source src="{{ url_for('serve_audio', filename=entry.en_audio) }}" type="audio/mpeg">
-                            Votre navigateur ne supporte pas l'audio.
-                        </audio>
-                        {% else %}
-                        -
-                        {% endif %}
+                    <td class="language-cell">
+                        <div class="text-with-audio">
+                            <div class="text-content german-text">{{ entry.get('de', '-') }}</div>
+                            {% if entry.get('de_audio') %}
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.de_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                            {% endif %}
+                        </div>
                     </td>
-                    <td class="audio-cell">
-                        {% if entry.get('de_audio') %}
-                        <audio controls preload="none">
-                            <source src="{{ url_for('serve_audio', filename=entry.de_audio) }}" type="audio/mpeg">
-                            Votre navigateur ne supporte pas l'audio.
-                        </audio>
-                        {% else %}
-                        -
-                        {% endif %}
+                    <td class="language-cell">
+                        <div class="text-with-audio">
+                            <div class="text-content spanish-text">{{ entry.get('es', '-') }}</div>
+                            {% if entry.get('es_audio') %}
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.es_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                            {% endif %}
+                        </div>
                     </td>
-                    <td class="audio-cell">
-                        {% if entry.get('es_audio') %}
-                        <audio controls preload="none">
-                            <source src="{{ url_for('serve_audio', filename=entry.es_audio) }}" type="audio/mpeg">
-                            Votre navigateur ne supporte pas l'audio.
-                        </audio>
-                        {% else %}
-                        -
-                        {% endif %}
+                    <td class="language-cell">
+                        <div class="text-with-audio">
+                            <div class="text-content italian-text">{{ entry.get('it', '-') }}</div>
+                            {% if entry.get('it_audio') %}
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.it_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                            {% endif %}
+                        </div>
                     </td>
-                    <td class="audio-cell">
-                        {% if entry.get('it_audio') %}
-                        <audio controls preload="none">
-                            <source src="{{ url_for('serve_audio', filename=entry.it_audio) }}" type="audio/mpeg">
-                            Votre navigateur ne supporte pas l'audio.
-                        </audio>
-                        {% else %}
-                        -
-                        {% endif %}
+                    <td class="language-cell">
+                        <div class="text-with-audio">
+                            <div class="text-content thai-text">{{ entry.th }}</div>
+                            <div class="audio-row">
+                                <audio controls preload="none">
+                                    <source src="{{ url_for('serve_audio', filename=entry.th_audio) }}" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'audio.
+                                </audio>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="language-cell">
+                        <div class="text-content phonetic">{{ entry.phon }}</div>
                     </td>
                 </tr>
                 {% endfor %}
