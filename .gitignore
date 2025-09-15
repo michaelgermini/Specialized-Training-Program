@@ -116,6 +116,12 @@ static/audio/
 *.mp3
 *.wav
 
+# Screenshots (keep in repository)
+!screenshots/
+!screenshots/*.png
+!screenshots/*.svg
+!screenshots/*.jpg
+
 # IDE
 .vscode/
 .idea/
