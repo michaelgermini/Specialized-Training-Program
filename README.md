@@ -9,7 +9,8 @@ Un logiciel Python moderne pour apprendre le français-thaï avec génération a
 
 ## 🖼️ Aperçu
 
-![Interface Méthode Français-Thaï Moderne](screenshots/home.png)
+![Interface Méthode Français-Thaï Moderne](https://raw.githubusercontent.com/michaelgermini/Specialized-Training-Program/main/screenshots/home.png)
+![Aperçu alternatif SVG](https://raw.githubusercontent.com/michaelgermini/Specialized-Training-Program/main/screenshots/app_preview.svg)
 
 *L'interface moderne et intuitive de Specialized-Training-Program avec contrôles audio sous chaque langue*
 
