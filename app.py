@@ -131,6 +131,81 @@ def generate_audio_endpoint():
     else:
         return jsonify({"error": "Erreur lors de la génération"}), 500
 
+@app.route("/check_missing_audios")
+def check_missing_audios():
+    """Endpoint pour diagnostiquer les audios manquants"""
+    missing_audios = []
+
+    for entry in entries:
+        # Vérifier chaque langue disponible
+        languages_to_check = [
+            ('fr', entry.get('fr')),
+            ('th', entry.get('th')),
+            ('en', entry.get('en')),
+            ('de', entry.get('de')),
+            ('es', entry.get('es')),
+            ('it', entry.get('it'))
+        ]
+
+        for lang, text in languages_to_check:
+            if text:  # Si le texte existe pour cette langue
+                text_hash = hashlib.md5(text.encode()).hexdigest()[:8]
+                filename = f"{lang}_{text_hash}.mp3"
+                filepath = os.path.join(AUDIO_DIR, filename)
+
+                if not os.path.exists(filepath):
+                    missing_audios.append({
+                        'text': text,
+                        'lang': lang,
+                        'filename': filename,
+                        'entry_fr': entry.get('fr', 'Unknown')
+                    })
+
+    return jsonify({
+        'total_entries': len(entries),
+        'missing_audios': len(missing_audios),
+        'missing_details': missing_audios[:50]  # Limiter à 50 pour éviter les réponses trop longues
+    })
+
+@app.route("/regenerate_missing_audios")
+def regenerate_missing_audios():
+    """Endpoint pour régénérer tous les audios manquants"""
+    regenerated = 0
+    failed = 0
+    results = []
+
+    for entry in entries:
+        # Vérifier chaque langue disponible
+        languages_to_check = [
+            ('fr', entry.get('fr')),
+            ('th', entry.get('th')),
+            ('en', entry.get('en')),
+            ('de', entry.get('de')),
+            ('es', entry.get('es')),
+            ('it', entry.get('it'))
+        ]
+
+        for lang, text in languages_to_check:
+            if text:  # Si le texte existe pour cette langue
+                text_hash = hashlib.md5(text.encode()).hexdigest()[:8]
+                filename = f"{lang}_{text_hash}.mp3"
+                filepath = os.path.join(AUDIO_DIR, filename)
+
+                if not os.path.exists(filepath):
+                    success = generate_audio(text, lang, filename)
+                    if success:
+                        regenerated += 1
+                        results.append(f"✅ {lang}: {text} -> {filename}")
+                    else:
+                        failed += 1
+                        results.append(f"❌ {lang}: {text} -> ÉCHEC")
+
+    return jsonify({
+        'regenerated': regenerated,
+        'failed': failed,
+        'results': results[-20:]  # Montrer les 20 derniers résultats
+    })
+
 @app.route("/static/audio/<path:filename>")
 def serve_audio(filename):
     """Sert les fichiers audio avec gestion d'erreur améliorée"""
