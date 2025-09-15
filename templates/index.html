@@ -171,6 +171,97 @@
             border: 1px solid #ddd;
             font-size: 16px;
         }
+        .filters-section {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .language-filter {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .language-filter label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .language-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: white;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .checkbox-label:hover {
+            background: #f8f9fa;
+            border-color: #3498db;
+        }
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+        .checkmark {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ddd;
+            border-radius: 3px;
+            margin-right: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background: #3498db;
+            border-color: #3498db;
+        }
+        .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .reset-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .reset-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
+        }
+        /* Masquer les colonnes de langues non sélectionnées */
+        .lang-fr.hidden, .lang-en.hidden, .lang-de.hidden,
+        .lang-es.hidden, .lang-it.hidden, .lang-th.hidden, .lang-phon.hidden {
+            display: none;
+        }
+        /* Masquer les en-têtes correspondants */
+        th[data-lang="fr"].hidden, th[data-lang="en"].hidden, th[data-lang="de"].hidden,
+        th[data-lang="es"].hidden, th[data-lang="it"].hidden, th[data-lang="th"].hidden, th[data-lang="phon"].hidden {
+            display: none;
+        }
         .loading {
             text-align: center;
             padding: 20px;
@@ -267,16 +358,60 @@
             </div>
         </div>
 
-        <div class="category-filter">
-            <label for="category">Filtrer par catégorie:</label>
-            <select id="category" onchange="filterByCategory()">
-                <option value="all">Toutes les catégories</option>
-                <option value="noyau">🔹 Noyau (Base & Survie)</option>
-                <option value="quotidien">🔵 Quotidien</option>
-                <option value="social">🟣 Vie Sociale</option>
-                <option value="travail">🟠 Travail & Études</option>
-                <option value="special">🔴 Situations Spéciales</option>
-            </select>
+        <div class="filters-section">
+            <div class="category-filter">
+                <label for="category">📂 Filtrer par catégorie:</label>
+                <select id="category" onchange="filterByCategory()">
+                    <option value="all">Toutes les catégories</option>
+                    <option value="noyau">🔹 Noyau (Base & Survie)</option>
+                    <option value="quotidien">🔵 Quotidien</option>
+                    <option value="social">🟣 Vie Sociale</option>
+                    <option value="travail">🟠 Travail & Études</option>
+                    <option value="special">🔴 Situations Spéciales</option>
+                </select>
+            </div>
+
+            <div class="language-filter">
+                <label>🌐 Langues à afficher:</label>
+                <div class="language-checkboxes">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-fr" checked onchange="toggleLanguage('fr')">
+                        <span class="checkmark"></span>
+                        🇫🇷 Français
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-en" checked onchange="toggleLanguage('en')">
+                        <span class="checkmark"></span>
+                        🇺🇸 Anglais
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-de" checked onchange="toggleLanguage('de')">
+                        <span class="checkmark"></span>
+                        🇩🇪 Allemand
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-es" checked onchange="toggleLanguage('es')">
+                        <span class="checkmark"></span>
+                        🇪🇸 Espagnol
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-it" checked onchange="toggleLanguage('it')">
+                        <span class="checkmark"></span>
+                        🇮🇹 Italien
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-th" checked onchange="toggleLanguage('th')">
+                        <span class="checkmark"></span>
+                        🇹🇭 Thaï
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lang-phon" checked onchange="toggleLanguage('phon')">
+                        <span class="checkmark"></span>
+                        🔤 Phonétique
+                    </label>
+                </div>
+                <button onclick="resetLanguageSelection()" class="reset-btn">🔄 Réinitialiser</button>
+            </div>
         </div>
 
         <div class="loading" id="loading">
@@ -291,19 +426,19 @@
         <table id="lexiqueTable">
             <thead>
                 <tr>
-                    <th>Français</th>
-                    <th>Anglais</th>
-                    <th>Allemand</th>
-                    <th>Espagnol</th>
-                    <th>Italien</th>
-                    <th>Thaï</th>
-                    <th>Phonétique</th>
+                    <th data-lang="fr">Français</th>
+                    <th data-lang="en">Anglais</th>
+                    <th data-lang="de">Allemand</th>
+                    <th data-lang="es">Espagnol</th>
+                    <th data-lang="it">Italien</th>
+                    <th data-lang="th">Thaï</th>
+                    <th data-lang="phon">Phonétique</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entry in entries %}
                 <tr data-category="{{ entry.category or 'other' }}">
-                    <td class="language-cell">
+                    <td class="language-cell lang-fr">
                         <div class="text-with-audio">
                             <div class="text-content">{{ entry.fr }}</div>
                             <div class="audio-row">
@@ -314,7 +449,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="language-cell">
+                    <td class="language-cell lang-en">
                         <div class="text-with-audio">
                             <div class="text-content english-text">{{ entry.get('en', '-') }}</div>
                             {% if entry.get('en_audio') %}
@@ -327,7 +462,7 @@
                             {% endif %}
                         </div>
                     </td>
-                    <td class="language-cell">
+                    <td class="language-cell lang-de">
                         <div class="text-with-audio">
                             <div class="text-content german-text">{{ entry.get('de', '-') }}</div>
                             {% if entry.get('de_audio') %}
@@ -340,7 +475,7 @@
                             {% endif %}
                         </div>
                     </td>
-                    <td class="language-cell">
+                    <td class="language-cell lang-es">
                         <div class="text-with-audio">
                             <div class="text-content spanish-text">{{ entry.get('es', '-') }}</div>
                             {% if entry.get('es_audio') %}
@@ -353,7 +488,7 @@
                             {% endif %}
                         </div>
                     </td>
-                    <td class="language-cell">
+                    <td class="language-cell lang-it">
                         <div class="text-with-audio">
                             <div class="text-content italian-text">{{ entry.get('it', '-') }}</div>
                             {% if entry.get('it_audio') %}
@@ -366,7 +501,7 @@
                             {% endif %}
                         </div>
                     </td>
-                    <td class="language-cell">
+                    <td class="language-cell lang-th">
                         <div class="text-with-audio">
                             <div class="text-content thai-text">{{ entry.th }}</div>
                             <div class="audio-row">
@@ -377,7 +512,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="language-cell">
+                    <td class="language-cell lang-phon">
                         <div class="text-content phonetic" id="phonetic-{{ loop.index }}">{{ entry.phon }}</div>
                     </td>
                 </tr>
@@ -496,7 +631,10 @@
         }
 
         function playAllAudios(category = 'all') {
-            // Filtrer les audios selon la catégorie
+            // Obtenir les langues sélectionnées
+            const selectedLanguages = getSelectedLanguages();
+
+            // Filtrer les audios selon la catégorie et les langues sélectionnées
             let allAudioElements;
             if (category === 'all') {
                 allAudioElements = Array.from(document.querySelectorAll('audio'));
@@ -510,15 +648,30 @@
                 });
             }
 
+            // Filtrer selon les langues sélectionnées
+            allAudioElements = allAudioElements.filter(audio => {
+                const cell = audio.closest('.language-cell');
+                if (!cell) return false;
+
+                const langClass = Array.from(cell.classList).find(cls => cls.startsWith('lang-'));
+                if (!langClass) return false;
+
+                const lang = langClass.replace('lang-', '');
+                return selectedLanguages.includes(lang);
+            });
+
             allAudios = allAudioElements;
             currentAudioIndex = 0;
 
             if (allAudios.length === 0) {
-                alert(`Aucun audio trouvé pour la catégorie "${category}". Générez d'abord les audios.`);
+                const categoryText = category === 'all' ? '' : ` dans la catégorie "${category}"`;
+                alert(`Aucun audio trouvé pour les langues sélectionnées${categoryText}. Vérifiez vos sélections de langues.`);
                 return;
             }
 
-            console.log(`🎵 Lecture de ${allAudios.length} audios ${category === 'all' ? 'de toutes les catégories' : `de la catégorie "${category}"`}`);
+            const langList = selectedLanguages.map(l => l.toUpperCase()).join(', ');
+            const categoryText = category === 'all' ? '' : ` de la catégorie "${category}"`;
+            console.log(`🎵 Lecture de ${allAudios.length} audios${categoryText} pour les langues: ${langList}`);
 
             // Afficher le bouton stop et masquer les boutons play
             document.getElementById('stopButton').style.display = 'inline-block';
@@ -529,6 +682,21 @@
             });
 
             playNextAudio();
+        }
+
+        // Obtenir la liste des langues sélectionnées
+        function getSelectedLanguages() {
+            const selectedLanguages = [];
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+
+            languages.forEach(lang => {
+                const checkbox = document.getElementById(`lang-${lang}`);
+                if (checkbox && checkbox.checked) {
+                    selectedLanguages.push(lang);
+                }
+            });
+
+            return selectedLanguages;
         }
 
         function playNextAudio() {
@@ -608,6 +776,88 @@
                     row.style.display = 'none';
                 }
             });
+        }
+
+        // Gestionnaire pour basculer l'affichage d'une langue
+        function toggleLanguage(lang) {
+            const checkbox = document.getElementById(`lang-${lang}`);
+            const isChecked = checkbox.checked;
+
+            // Sauvegarder la préférence dans localStorage
+            const preferences = JSON.parse(localStorage.getItem('languagePreferences') || '{}');
+            preferences[lang] = isChecked;
+            localStorage.setItem('languagePreferences', JSON.stringify(preferences));
+
+            // Appliquer la visibilité
+            updateLanguageVisibility();
+
+            console.log(`${lang.toUpperCase()} ${isChecked ? 'affiché' : 'masqué'}`);
+        }
+
+        // Mettre à jour la visibilité des colonnes de langues
+        function updateLanguageVisibility() {
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+
+            languages.forEach(lang => {
+                const checkbox = document.getElementById(`lang-${lang}`);
+                const isVisible = checkbox.checked;
+
+                // Masquer/afficher les cellules de données
+                const cells = document.querySelectorAll(`.lang-${lang}`);
+                cells.forEach(cell => {
+                    if (isVisible) {
+                        cell.classList.remove('hidden');
+                    } else {
+                        cell.classList.add('hidden');
+                    }
+                });
+
+                // Masquer/afficher les en-têtes
+                const headers = document.querySelectorAll(`th[data-lang="${lang}"]`);
+                headers.forEach(header => {
+                    if (isVisible) {
+                        header.classList.remove('hidden');
+                    } else {
+                        header.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        // Réinitialiser la sélection des langues
+        function resetLanguageSelection() {
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+
+            // Cocher toutes les cases
+            languages.forEach(lang => {
+                const checkbox = document.getElementById(`lang-${lang}`);
+                checkbox.checked = true;
+
+                // Sauvegarder dans localStorage
+                const preferences = JSON.parse(localStorage.getItem('languagePreferences') || '{}');
+                preferences[lang] = true;
+                localStorage.setItem('languagePreferences', JSON.stringify(preferences));
+            });
+
+            // Mettre à jour l'affichage
+            updateLanguageVisibility();
+
+            console.log('✅ Toutes les langues ont été réactivées');
+        }
+
+        // Charger les préférences depuis localStorage
+        function loadLanguagePreferences() {
+            const preferences = JSON.parse(localStorage.getItem('languagePreferences') || '{}');
+            const languages = ['fr', 'en', 'de', 'es', 'it', 'th', 'phon'];
+
+            languages.forEach(lang => {
+                const checkbox = document.getElementById(`lang-${lang}`);
+                const isChecked = preferences[lang] !== false; // Par défaut true si pas défini
+                checkbox.checked = isChecked;
+            });
+
+            // Appliquer la visibilité
+            updateLanguageVisibility();
         }
 
         function downloadLexique() {
@@ -743,6 +993,9 @@
 
             // Configurer les listeners audio
             setupAudioListeners();
+
+            // Charger les préférences de langues
+            loadLanguagePreferences();
         });
     </script>
 </body>
