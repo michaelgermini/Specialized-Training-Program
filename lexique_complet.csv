@@ -1,12 +1,12 @@
 fr,en,de,es,it,th,phon,category
-Bonjour,Hello,Hallo,Hola,Ciao,สวัสดีครับ,sà-wàt-dii khráp,noyau
+Bonjour,Hello,Hallo,Hola,Ciao,สวัสดี,sà-wàt-dii,noyau
 Au revoir,Goodbye,Tschüss,Adiós,Ciao,ลาก่อน,làa-gɔ̀ɔn,noyau
-Merci,Thank you,Danke,Gracias,Grazie,ขอบคุณครับ,khòp-khun khráp,noyau
-Excusez-moi,Excuse me,Entschuldigung,Disculpe,Scusa,ขอโทษครับ,khɔ̌ɔ-thôot khráp,noyau
+Merci,Thank you,Danke,Gracias,Grazie,ขอบคุณ,khòp-khun,noyau
+Excusez-moi,Excuse me,Entschuldigung,Disculpe,Scusa,ขอโทษ,khɔ̌ɔ-thôot,noyau
 S'il vous plaît,Please,Bitte,Por favor,Per favore,กรุณา,kru-naa,noyau
 Combien ça coûte ?,How much is it ?,Wie viel kostet das ?,¿Cuánto cuesta ?,Quanto costa ?,ราคาเท่าไร ?,raakhaa thâo-rai ?,noyau
 Où est...,Where is...,Wo ist...,¿Dónde está... ?,Dov'è... ?,...อยู่ที่ไหน ?,... yùu thîi năi ?,noyau
-Je voudrais...,I would like...,Ich möchte...,Me gustaría...,Vorrei...,ผมอยาก...,phǒm yàak...,noyau
+Je voudrais...,I would like...,Ich möchte...,Me gustaría...,Vorrei...,อยาก...,yàak...,noyau
 Du riz,Rice,Reis,Arroz,Riso,ข้าว,khâao,noyau
 Du poulet,Chicken,Hähnchen,Pollo,Pollo,ไก่,gài,noyau
 De l'eau,Water,Wasser,Agua,Acqua,น้ำ,náam,noyau
@@ -14,10 +14,10 @@ Une bière,Beer,Bier,Cerveza,Birra,เบียร์,bia,noyau
 Un taxi,Taxi,Taxi,Taxi,Taxi,แท็กซี่,thɛ́ɛk-sìi,noyau
 L'aéroport,Airport,Flughafen,Aeropuerto,Aeroporto,สนามบิน,sà-nǎam-bin,noyau
 L'hôtel,Hotel,Hotel,Hotel,Hotel,โรงแรม,roong-rɛɛm,noyau
-J'ai mal,It hurts,Es tut weh,เจ็บ,jèp,noyau
+J'ai mal,It hurts,Es tut weh,ปวด,puat,noyau
 Docteur,Doctor,Arzt,หมอ,mɔ̌ɔ,noyau
 Police,Police,Polizei,ตำรวจ,tam-rùat,noyau
-Aide,Help,Hilfe,ช่วย,chûai,noyau
+Aide,Help,Hilfe,ช่วยเหลือ,chûai lʉ̂a,noyau
 Amour,Love,Liebe,รัก,rák,noyau
 Beau/Belle,Beautiful/Handsome,Schön/Gutaussehend,สวย/หล่อ,sŭai/lòr,noyau
 Famille,Family,Familie,ครอบครัว,khrɔ̂ɔp-khrua,noyau
@@ -28,11 +28,11 @@ Manger,Eat,Essen,กิน,gin,noyau
 Boire,Drink,Trinken,ดื่ม,dʉ̀ʉm,noyau
 Oui,Yes,Ja,ใช่,châi,noyau
 Non,No,Nein,ไม่ใช่,mâi châi,noyau
-Je,I,Ich,ผม/ฉัน,phǒm/chán,noyau
-Tu,You (informal),Du,เธอ/คุณ,thəər/khun,noyau
-Il/Elle,He/She,Er/Sie,เขา/khǎo,noyau
+Je,I,Ich,ฉัน,chán,noyau
+Tu,You (informal),Du,เธอ,thəər,noyau
+Il/Elle,He/She,Er/Sie,เขา,khǎo,noyau
 Nous,We,Wir,เรา,rao,noyau
-Vous,You (formal/plural),Sie,พวกคุณ,phûak khun,noyau
+Vous,You (formal/plural),Sie,คุณ,khun,noyau
 Ils/Elles,They,Sie,พวกเขา,phûak khǎo,noyau
 Être,To be,Sein,เป็น,pen,noyau
 Avoir,To have,Haben,มี,mii,noyau
