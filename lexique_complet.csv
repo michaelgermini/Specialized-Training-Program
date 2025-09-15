@@ -1,0 +1,322 @@
+fr,en,de,th,phon,category
+Bonjour,Hello,Hallo,สวัสดีครับ,sà-wàt-dii khráp,noyau
+Au revoir,Goodbye,Tschüss,ลาก่อน,làa-gɔ̀ɔn,noyau
+Merci,Thank you,Danke,ขอบคุณครับ,khòp-khun khráp,noyau
+Excusez-moi,Excuse me,Entschuldigung,ขอโทษครับ,khɔ̌ɔ-thôot khráp,noyau
+S'il vous plaît,Please,Bitte,กรุณา,kru-naa,noyau
+Combien ça coûte ?,How much is it ?,Wie viel kostet das ?,ราคาเท่าไร ?,raakhaa thâo-rai ?,noyau
+Où est...,Where is...,Wo ist...,...อยู่ที่ไหน ?,... yùu thîi năi ?,noyau
+Je voudrais...,I would like...,Ich möchte...,ผมอยาก...,phǒm yàak...,noyau
+Du riz,Rice,Reis,ข้าว,khâao,noyau
+Du poulet,Chicken,Hähnchen,ไก่,gài,noyau
+De l'eau,Water,Wasser,น้ำ,náam,noyau
+Une bière,Beer,Bier,เบียร์,bia,noyau
+Un taxi,Taxi,Taxi,แท็กซี่,thɛ́ɛk-sìi,noyau
+L'aéroport,Airport,Flughafen,สนามบิน,sà-nǎam-bin,noyau
+L'hôtel,Hotel,Hotel,โรงแรม,roong-rɛɛm,noyau
+J'ai mal,It hurts,Es tut weh,เจ็บ,jèp,noyau
+Docteur,Doctor,Arzt,หมอ,mɔ̌ɔ,noyau
+Police,Police,Polizei,ตำรวจ,tam-rùat,noyau
+Aide,Help,Hilfe,ช่วย,chûai,noyau
+Amour,Love,Liebe,รัก,rák,noyau
+Beau/Belle,Beautiful/Handsome,Schön/Gutaussehend,สวย/หล่อ,sŭai/lòr,noyau
+Famille,Family,Familie,ครอบครัว,khrɔ̂ɔp-khrua,noyau
+Ami,Friend,Freund,เพื่อน,phʉ̂an,noyau
+Travail,Work,Arbeit,งาน,ngaan,noyau
+École,School,Schule,โรงเรียน,roong-rian,noyau
+Manger,Eat,Essen,กิน,gin,noyau
+Boire,Drink,Trinken,ดื่ม,dʉ̀ʉm,noyau
+Oui,Yes,Ja,ใช่,châi,noyau
+Non,No,Nein,ไม่ใช่,mâi châi,noyau
+Je,I,Ich,ผม/ฉัน,phǒm/chán,noyau
+Tu,You (informal),Du,เธอ/คุณ,thəər/khun,noyau
+Il/Elle,He/She,Er/Sie,เขา/khǎo,noyau
+Nous,We,Wir,เรา,rao,noyau
+Vous,You (formal/plural),Sie,พวกคุณ,phûak khun,noyau
+Ils/Elles,They,Sie,พวกเขา,phûak khǎo,noyau
+Être,To be,Sein,เป็น,pen,noyau
+Avoir,To have,Haben,มี,mii,noyau
+Aller,To go,Gehen,ไป,pai,noyau
+Faire,To do/Make,Machen/Tun,ทำ,tham,noyau
+Dire,To say,Sagen,พูด,phûut,noyau
+Voir,To see,Sehen,เห็น,hen,noyau
+Venir,To come,Kommen,มา,maa,noyau
+Pouvoir,Can,Können,สามารถ,sǎa-mâat,noyau
+Vouloir,To want,Wollen,อยาก,yàak,noyau
+Savoir,To know,Wissen,รู้,rúu,noyau
+Un,One,Ein,หนึ่ง,nʉ̀ng,noyau
+Deux,Two,Zwei,สอง,sɔ̌ɔng,noyau
+Trois,Three,Drei,สาม,sǎam,noyau
+Quatre,Four,Vier,สี่,sìi,noyau
+Cinq,Five,Fünf,ห้า,hâa,noyau
+Six,Six,Sechs,หก,hòk,noyau
+Sept,Seven,Sieben,เจ็ด,jèt,noyau
+Huit,Eight,Acht,แปด,pɛ̀ɛt,noyau
+Neuf,Nine,Neun,เก้า,gâao,noyau
+Dix,Ten,Zehn,สิบ,sìp,noyau
+Rouge,Red,Rot,สีแดง,sǐi dɛɛng,noyau
+Bleu,Blue,Blau,สีน้ำเงิน,sǐi náam ngern,noyau
+Vert,Green,Grün,สีเขียว,sǐi khǐao,noyau
+Jaune,Yellow,Gelb,สีเหลือง,sǐi lʉ̌ang,noyau
+Noir,Black,Schwarz,สีดำ,sǐi dam,noyau
+Blanc,White,Weiß,สีขาว,sǐi khǎao,noyau
+Grand,Big/Gross,Groß,ใหญ่,yài,noyau
+Petit,Small/Klein,Klein,เล็ก,lék,noyau
+Bon,Good,Gut,ดี,dii,noyau
+Mauvais,Bad,Schlecht,ไม่ดี,mâi dii,noyau
+Chaud,Hot,Heiß,ร้อน,rɔ́ɔn,noyau
+Froid,Cold,Kalt,เย็น,yen,noyau
+Nouveau,New,Neu,ใหม่,mài,noyau
+Ancien,Old,Alt,เก่า,gào,noyau
+Beaucoup,Many/Very,Much/Viele,มาก,mâak,noyau
+Peu,Little/Wenig,Wenig/Etwas,น้อย,nɔ́ɔi,noyau
+Aujourd'hui,Today,Heute,วันนี้,wan níi,quotidien
+Demain,Tomorrow,Morgen,พรุ่งนี้,phrûng níi,quotidien
+Hier,Yesterday,Gestern,เมื่อวาน,mʉ̂a waan,quotidien
+Maintenant,Now,Jetzt,ตอนนี้,ton níi,quotidien
+Matin,Morning,Morgen,เช้า,cháao,quotidien
+Soir,Evening,Abend,เย็น,yen,quotidien
+Nuit,Night,Nacht,กลางคืน,klang khʉn,quotidien
+Heure,Hour/Stunde,Stunde/Uhr,ชั่วโมง,chùa moong,quotidien
+Minute,Minute,Minute,นาที,naa-thii,quotidien
+Seconde,Second,Sekunde,วินาที,wi-naa-thii,quotidien
+Pain,Bread,Brot,ขนมปัง,khà-nom pang,quotidien
+Fromage,Cheese,Käse,ชีส,chíis,quotidien
+Lait,Milk,Milch,นม,nom,quotidien
+Jus,Juice,Saft,น้ำผลไม้,náam phǒn lá-mái,quotidien
+Café,Coffee,Kaffee,กาแฟ,gaa-fɛɛ,quotidien
+Thé,Tea,Tee,ชา,chaa,quotidien
+Vin,Wine,Wein,ไวน์,wai,quotidien
+Soupe,Soup,Suppe,ซุป,súp,quotidien
+Salade,Salad,Salat,สลัด,sà-làt,quotidien
+Fruits,Fruits,Früchte,ผลไม้,phǒn lá-mái,quotidien
+Légumes,Vegetables,Gemüse,ผัก,phàk,quotidien
+Pomme,Apple,Apfel,แอปเปิล,ɛɛp-pəən,quotidien
+Banane,Banana,Banane,กล้วย,glûai,quotidien
+Orange,Orange,Orange,ส้ม,sǒm,quotidien
+Tomate,Tomato,Tomate,มะเขือเทศ,má-khʉ̌a-thɛ̂ɛt,quotidien
+Carotte,Carrot,Karotte,แครอท,khɛɛ-rót,quotidien
+Mais,Corn/Mais,Mais,ข้าวโพด,khâao phôot,quotidien
+Restaurant,Restaurant,Restaurant,ร้านอาหาร,râan aa-hǎan,quotidien
+Menu,Menu,Speisekarte,เมนู,mé-nuu,quotidien
+Addition,Bill/Rechnung,Rechnung,บิล/bil,quotidien
+Cuisinier,Cook,Koch,พ่อครัว,phɔ̂ɔ khrua,quotidien
+Serveur,Waiter,Kellner,บริกร,pɔɔ-ri-gɔɔn,quotidien
+Table,Table,Tisch,โต๊ะ,tó,quotidien
+Chaise,Chair,Stuhl,เก้าอี้,gâo-îi,quotidien
+Fourchette,Fork,Gabel,ส้อม,sɔ̂ɔm,quotidien
+Couteau,Knife,Messer,มีด,míit,quotidien
+Cuillère,Spoon,Löffel,ช้อน,chɔ́ɔn,quotidien
+Assiette,Plate,Teller,จาน,jaan,quotidien
+Verre,Glass,Glas,แก้ว,gɛ̂ɛo,quotidien
+Tasse,Cup,Tasse,ถ้วย,thûai,quotidien
+Bus,Bus,Bus,รถเมล์,rót mee,quotidien
+Voiture,Car,Auto,รถยนต์,rót yon,quotidien
+Moto,Motorbike,Motorrad,มอเตอร์ไซค์,mɔɔ-thəə-sai,quotidien
+Train,Train,Zug,รถไฟ,rót fai,quotidien
+Avion,Airplane,Flugzeug,เครื่องบิน,khrʉ̂ang bin,quotidien
+Bateau,Boat,Schiff,เรือ,rʉa,quotidien
+Vélo,Bike,Fahrrad,จักรยาน,jàk-grà-yaan,quotidien
+Arrêt,Stop,Haltestelle,ป้าย,pâai,quotidien
+Station,Station,Station,สถานี,sà-thǎa-nii,quotidien
+Billet,Ticket,Fahrkarte,ตั๋ว,dtǔa,quotidien
+Conducteur,Driver,Busfahrer,คนขับ,khon khàp,quotidien
+Essence,Gas/Petrol,Benzin,น้ำมัน,náam man,quotidien
+Parking,Parking,Parkplatz,ที่จอด,thîi jɔ̀ɔt,quotidien
+Route,Road,Straße,ถนน,thà-nǒn,quotidien
+Pont,Bridge,Brücke,สะพาน,sà-paan,quotidien
+Maison,House,Haus,บ้าน,bâan,quotidien
+Appartement,Apartment,Wohnung,อพาร์ตเมนต์,à-pâat-mén,quotidien
+Chambre,Room,Zimmer,ห้อง,hɔ̂ɔng,quotidien
+Salle de bain,Bathroom,Badezimmer,ห้องน้ำ,hɔ̂ɔng náam,quotidien
+Cuisine,Kitchen,Küche,ครัว,khrua,quotidien
+Salon,Living room,Wohnzimmer,ห้องนั่งเล่น,hɔ̂ɔng náng len,quotidien
+Lit,Bed,Bett,เตียง,dtǐang,quotidien
+Bureau,Desk,Schreibtisch,โต๊ะทำงาน,tó tham ngaan,quotidien
+Chaise,Chair,Stuhl,เก้าอี้,gâo-îi,quotidien
+Fenêtre,Window,Fenster,หน้าต่าง,nâa dtàang,quotidien
+Porte,Door,Tür,ประตู,prà-dtuu,quotidien
+Clé,Key,Schlüssel,กุญแจ,gun-jɛɛ,quotidien
+Électricité,Electricity,Strom,ไฟฟ้า,fai fáa,quotidien
+Eau,Water,Wasser,น้ำ,náam,quotidien
+Chauffage,Heating,Heizung,เครื่องทำความร้อน,khrʉ̂ang tham khwaam rɔ́ɔn,quotidien
+Internet,Internet,Internet,อินเทอร์เน็ต,in-thəə-nét,quotidien
+Téléphone,Telephone,Telefon,โทรศัพท์,tho-ra-sàp,quotidien
+Ordinateur,Computer,Computer,คอมพิวเตอร์,khɔɔm-phiw-tôe,quotidien
+Télévision,Television,Fernsehen,โทรทัศน์,tho-ra-thát,quotidien
+Radio,Radio,Radio,วิทยุ,wi-thá-yú,quotidien
+Lumière,Light,Licht,ไฟ,fai,quotidien
+Père,Father,Vater,พ่อ,phɔ̂ɔ,social
+Mère,Mother,Mutter,แม่,mɛ̂ɛ,social
+Fils,Son,Sohn,ลูกชาย,lûuk chaai,social
+Fille,Daughter,Tochter,ลูกสาว,lûuk sǎao,social
+Frère,Brother,Bruder,พี่ชาย/phǐi chaai,social
+Sœur,Sister,Schwester,พี่สาว/phǐi sǎao,social
+Grand-père,Grandfather,Opa,ปู่/ตา,puu/taa,social
+Grand-mère,Grandmother,Oma,ย่า/yâa,social
+Oncle,Uncle,Onkel,ลุง/อา,lung/aa,social
+Tante,Aunt,Tante,ป้า/pâa,social
+Cousin,Cousin,Cousin,ลูกพี่ลูกน้อง,lûuk phǐi lûuk nɔ́ɔng,social
+Mari,Husband,Ehemann,สามี,sǎa-mii,social
+Femme,Wife,Ehefrau,ภรรยา,phan-rá-yaa,social
+Enfant,Child,Kind,เด็ก,dèk,social
+Bébé,Baby,Baby,ทารก,thaa-rák,social
+Garçon,Boy,Junge,เด็กชาย,dèk chaai,social
+Fille,Girl,Mädchen,เด็กหญิง,dèk yǐng,social
+Homme,Man,Mann,ผู้ชาย,phûu chaai,social
+Femme,Woman,Frau,ผู้หญิง,phûu yǐng,social
+Content,Happy,Glücklich,มีความสุข,mii khwaam sùk,social
+Triste,Sad,Traurig,เศร้า,sào,social
+Fatigué,Tired,Müde,เหนื่อย,nʉ̀ai,social
+En colère,Angry,Wütend,โกรธ,groht,social
+Surpris,Surprised,Überrascht,ตกใจ,dtòk jai,social
+Effrayé,Scared,Angst,กลัว,glua,social
+Jaloux,Jealous,Eifersüchtig,อิจฉา,ìt-chaa,social
+Amoureux,In love,Verliebt,ตกหลุมรัก,dtòk lùm rák,social
+Seul,Lonely,Einsam,เหงา,ngǎo,social
+Heureux,Happy,Glücklich,มีความสุข,mii khwaam sùk,social
+Musique,Music,Musik,ดนตรี,dòn-dtrii,social
+Chanson,Song,Lied,เพลง,phleng,social
+Danse,Dance,Tanz,เต้น,dten,social
+Cinéma,Cinema,Kino,โรงภาพยนตร์,roong phâap yon,social
+Théâtre,Theater,Theater,โรงละคร,roong lá-khɔɔn,social
+Concert,Concert,Konzert,คอนเสิร์ต,khɔɔn-sə̂ət,social
+Café,Cafe,Cafe,คาเฟ่,khaa-fɛɛ,social
+Bar,Bar,Bar,บาร์,baa,social
+Restaurant,Restaurant,Restaurant,ร้านอาหาร,râan aa-hǎan,social
+Plage,Beach,Strand,ชายหาด,chaai hàat,social
+Parc,Park,Park,สวน,sǔan,social
+Zoo,Zoo,Zoo,สวนสัตว์,sǔan sàt,social
+Musée,Museum,Museum,พิพิธภัณฑ์,phi-phi-thàp-phǎn,social
+Église,Church,Kirche,โบสถ์,boo-thǒ,social
+Temple,Temple,Tempel,วัด,wát,social
+Monument,Monument,Denkmal,อนุสาวรีย์,à-nú-sǎao-ríi,social
+Téléphone,Phone,Telefon,โทรศัพท์,tho-ra-sàp,social
+Message,Message,Nachricht,ข้อความ,khɔ̂ɔ-khwaam,social
+Appeler,Call,Anrufen,โทร,tho,social
+Texter,Text,SMS,ส่งข้อความ,sòng khɔ̂ɔ-khwaam,social
+Internet,Internet,Internet,อินเทอร์เน็ต,in-thəə-nét,social
+Ordinateur,Computer,Computer,คอมพิวเตอร์,khɔɔm-phiw-tôe,social
+Application,App,App,แอปพลิเคชัน,ɛɛp-pli-kɛɛ-chán,social
+Réseau social,Social network,Soziales Netzwerk,โซเชียลมีเดีย,soo-chəən mîi-dii-yaa,social
+Photo,Photo,Foto,รูปภาพ,rûup phâap,social
+Vidéo,Video,Video,วิดีโอ,wi-dii-o,social
+Camera,Camera,Kamera,กล้อง,glɔ̂ɔng,social
+Email,Email,E-Mail,อีเมล,ii-meel,social
+Site web,Website,Website,เว็บไซต์,wép-sai,social
+Mot de passe,Password,Passwort,รหัสผ่าน,rà-hàt phaan,social
+Bureau,Office,Büro,สำนักงาน,sǎm-nák ngaan,travail
+Entreprise,Company,Firma,บริษัท,bɔɔ-rí-sàt,travail
+Directeur,Director,Direktor,ผู้อำนวยการ,phûu am-nuai gaan,travail
+Manager,Manager,Manager,ผู้จัดการ,phûu jat gaan,travail
+Employé,Employee,Mitarbeiter,พนักงาน,phanák ngaan,travail
+Secrétaire,Secretary,Sekretärin,เลขานุการ,lék-khaa-nú-gaan,travail
+Réunion,Meeting,Besprechung,ประชุม,prà-chum,travail
+Projet,Project,Projekt,โครงการ,khrong-gaan,travail
+Contrat,Contract,Vertrag,สัญญา,sàn-yaa,travail
+Salaire,Salary,Gehalt,เงินเดือน,ngerndʉan,travail
+Vacances,Vacation,Urlaub,วันหยุด,wan yùt,travail
+Congé,Leave,Urlaub,ลา,laa,travail
+Heures supplémentaires,Overtime,Überstunden,โอที,o-thii,travail
+Formation,Training,Ausbildung,การฝึกอบรม,gaan fʉ̀k ɔ̀ɔp-rom,travail
+Promotion,Promotion,Beförderung,การเลื่อนตำแหน่ง,gaan lʉ̂an dtam-nɛ̀ng,travail
+Démission,Resignation,Kündigung,ลาออก,laa ɔ̀ɔk,travail
+Recrutement,Recruitment,Einstellung,การสรรหา,gaan sà-rà-hǎa,travail
+CV,Resume,Lebenslauf,เรซูเม่,ré-suu-mɛ̂ɛ,travail
+Entretien,Interview,Bewerbungsgespräch,สัมภาษณ์,sàm-phǎa-sǎa,travail
+École,School,Schule,โรงเรียน,roong-rian,travail
+Université,University,Universität,มหาวิทยาลัย,mà-hǎa-wi-thá-yaa-lai,travail
+Professeur,Professor,Professor,อาจารย์,aa-jâan,travail
+Étudiant,Student,Student,นักศึกษา,nák-sʉ̀k-sǎa,travail
+Classe,Class,Klasse,ห้องเรียน,hɔ̂ɔng rian,travail
+Cours,Course,Kurs,วิชา,wi-chaa,travail
+Examen,Exam,Prüfung,สอบ,sɔ̌ɔp,travail
+Note,Grade/Note,Note/Zensur,เกรด/grɛɛt,travail
+Diplôme,Diploma,Diplom,ปริญญา,prìn-yaa,travail
+Recherche,Research,Forschung,การวิจัย,gaan wi-jai,travail
+Bibliothèque,Library,Bibliothek,หอสมุด,hɔ̌ɔ sà-mùt,travail
+Livre,Book,Buch,หนังสือ,nǎng-sʉ̌ʉ,travail
+Cahier,Notebook,Heft,สมุด,sà-mùt,travail
+Stylo,Pen,Stift,ปากกา,pâak-gaa,travail
+Crayon,Pencil,Bleistift,ดินสอ,din-sɔ̌ɔ,travail
+Gomme,Eraser,Radiergummi,ยางลบ,yang lóp,travail
+Règle,Ruler,Lineal,ไม้บรรทัด,mâi ban-thát,travail
+Calculatrice,Calculator,Taschenrechner,เครื่องคิดเลข,khrʉ̂ang khít lék,travail
+Ordinateur,Computer,Computer,คอมพิวเตอร์,khɔɔm-phiw-tôe,travail
+Imprimante,Printer,Drucker,เครื่องพิมพ์,khrʉ̂ang phim,travail
+Photocopieuse,Photocopier,Kopierer,เครื่องถ่ายเอกสาร,khrʉ̂ang thâai èek-kà-sǎan,travail
+Marché,Market,Markt,ตลาด,dtà-làat,special
+Magasin,Store,Geschäft,ร้านค้า,râan khâa,special
+Supermarché,Supermarket,Supermarkt,ซูเปอร์มาร์เก็ต,suu-pəə maa-khét,special
+Acheter,Buy,Kaufen,ซื้อ,sʉ́ʉ,special
+Vendre,Sell,Verkaufen,ขาย,khâai,special
+Prix,Price,Preis,ราคา,raakhaa,special
+Cher,Expensive,Teuer,แพง,phɛɛng,special
+Pas cher,Cheap,Billig,ถูก/thùuk,special
+Argent,Money,Geld,เงิน,ngern,special
+Banque,Bank,Bank,ธนาคาร,thà-naa-khaan,special
+Carte bancaire,Credit card,Kreditkarte,บัตรเครดิต,bàt khé-dìt,special
+Espèces,Cash,Bar,Bargeld,เงินสด,ngern sòt,special
+Chèque,Check,Scheck,เช็ค,chék,special
+Facture,Bill,Rechnung,ใบเสร็จ,bai sèrt,special
+Reçu,Receipt,Quittung,ใบรับ,bai ráp,special
+Soldes,Sales,Ausverkauf,ลดราคา,lót raakhaa,special
+Rabais,Discount,Rabatt,ส่วนลด,sùan lót,special
+Offre spéciale,Special offer,Sonderangebot,โปรโมชั่น,proo-moo-chán,special
+Urgence,Emergency,Notfall,ฉุกเฉิน,chúk-chəən,special
+Hôpital,Hospital,Krankenhaus,โรงพยาบาล,roong phà-yaa-baan,special
+Médecin,Doctor,Arzt,แพทย์,phɛ̂ɛt,special
+Infirmière,Nurse,Krankenschwester,พยาบาล,phà-yaa-baan,special
+Maladie,Illness,Krankheit,โรค,rohk,special
+Douleur,Pain,Schmerz,ปวด,puat,special
+Fièvre,Fever,Fieber,ไข้,khâi,special
+Toux,Cough,Husten,ไอ,ai,special
+Rhume,Cold,Erkältung,หวัด,huàt,special
+Blessure,Wound,Verletzung,บาดเจ็บ,bàat jèp,special
+Sang,Blood,Blut,เลือด,lʉ̂at,special
+Médicament,Medicine,Medikament,ยา,yaa,special
+Ordonnance,Prescription,Rezept,ใบสั่งยา,bai sàng yaa,special
+Pharmacie,Pharmacy,Apotheke,ร้านขายยา,râan khâai yaa,special
+Secours,Help,Hilfe,ช่วยเหลือ,chûai lʉ̂a,special
+Ambulance,Ambulance,Krankenwagen,รถพยาบาล,rót phà-yaa-baan,special
+Pompiers,Firefighters,Feuerwehr,นักดับเพลิง,nák dàp phleng,special
+Feu,Fire,Feuer,ไฟไหม้,fai mǎi,special
+Accident,Accident,Unfall,อุบัติเหตุ,ù-bàt-tì-hèdt,special
+Vol,Theft,Diebstahl,โจรกรรม,jɔɔn-gam,special
+Crime,Crime,Verbrechen,อาชญากรรม,aa-chá-yaa-gam,special
+Victime,Victim,Opfer,เหยื่อ,yʉ̂a,special
+Témoin,Witness,Zeuge,พยาน,phá-yaan,special
+Prison,Prison,Gefängnis,คุก,khúk,special
+Juge,Judge,Richter,ผู้พิพากษา,phûu phí-pâak-sǎa,special
+Avocat,Lawyer,Anwalt,ทนายความ,thà-naai khwaam,special
+Procès,Trial,Prozess,การพิจารณาคดี,gaan phí-jâa-rá-naa khá-dii,special
+Voyage,Trip,Reise,การเดินทาง,gaan dəən-thaang,special
+Destination,Destination,Ziel,จุดหมาย,jùt-mǎai,special
+Valise,Suitcase,Koffer,กระเป๋าเดินทาง,grà-pǎo dəən-thaang,special
+Passeport,Passport,Reisepass,หนังสือเดินทาง,nǎng-sʉ̌ʉ dəən-thaang,special
+Visa,Visa,Visum,วีซ่า,wii-saa,special
+Douane,Customs,Zoll,ศุลกากร,sùn-gaa-gɔɔn,special
+Frontière,Border,Grenze,ชายแดน,chaai dɛɛn,special
+Carte,Map,Karte,แผนที่,phɛ̂ɛn thîi,special
+Guide,Guide,Führer,ไกด์/gai,special
+Touriste,Tourist,Tourist,นักท่องเที่ยว,nák thoong-thîao,special
+Hôtel,Hotel,Hotel,โรงแรม,roong-rɛɛm,special
+Réservation,Reservation,Reservierung,การจอง,gaan jɔɔng,special
+Chambre,Room,Zimmer,ห้อง,hɔ̂ɔng,special
+Réception,Reception,Rezeption,แผนกต้อนรับ,phɛ̂ɛn-gàk dtɔ̂ɔn ráp,special
+Clé,Key,Schlüssel,กุญแจ,gun-jɛɛ,special
+Bagages,Luggage,Gepäck,สัมภาระ,sàm-phâa-rá,special
+Excursion,Excursion,Ausflug,ทริป/thíp,special
+Monument,Monument,Denkmal,อนุสาวรีย์,à-nú-sǎao-ríi,special
+Musée,Museum,Museum,พิพิธภัณฑ์,phi-phi-thàp-phǎn,special
+Culture,Culture,Kultur,วัฒนธรรม,wát-thá-ná-tham,special
+Religion,Religion,Religion,ศาสนา,sǎat-sà-naa,special
+Temple,Temple,Tempel,วัด,wát,special
+Moine,Monk,Mönch,พระ,phrá,special
+Prière,Prayer,Gebet,การสวดมนต์,gaan sùat món,special
+Fête,Festival,Fest,เทศกาล,thɛ̂ɛt-sà-gaan,special
+Cérémonie,Ceremony,Zeremonie,พิธี,phí-thii,special
+Tradition,Tradition,Tradition,ประเพณี,prà-phe-nii,special
+Respect,Respect,Respekt,ความเคารพ,khwaam khau-róp,special
+Politesse,Politeness,Höflichkeit,มารยาท,maa-rá-yâat,special
+Coutume,Custom,Brauch,ขนบธรรมเนียม,khà-nóp tham-níam,special

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Méthode Français-Thaï Moderne</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+            margin: 10px;
+        }
+        .controls {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .controls button:hover {
+            background: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .audio-cell {
+            text-align: center;
+        }
+        audio {
+            width: 100px;
+            height: 35px;
+        }
+        .phonetic {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .thai-text {
+            font-size: 1.1em;
+            color: #e74c3c;
+        }
+        .english-text {
+            font-size: 1.1em;
+            color: #6c757d;
+        }
+        .german-text {
+            font-size: 1.1em;
+            color: #dc3545;
+        }
+        .category-filter {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .category-filter select {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        .progress {
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Méthode Français–Thaï Moderne</h1>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>{{ entries|length }}</h3>
+                <p>Mots/Phrases</p>
+            </div>
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>Catégories</p>
+            </div>
+            <div class="stat-card">
+                <h3>80%</h3>
+                <p>Couverture Conversation</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="generateAllAudios()">🔊 Générer Tous les Audios</button>
+            <button onclick="playAllAudios()">▶️ Tout Écouter</button>
+            <button onclick="downloadLexique()">📥 Télécharger CSV</button>
+        </div>
+
+        <div class="category-filter">
+            <label for="category">Filtrer par catégorie:</label>
+            <select id="category" onchange="filterByCategory()">
+                <option value="all">Toutes les catégories</option>
+                <option value="noyau">🔹 Noyau (Base & Survie)</option>
+                <option value="quotidien">🔵 Quotidien</option>
+                <option value="social">🟣 Vie Sociale</option>
+                <option value="travail">🟠 Travail & Études</option>
+                <option value="special">🔴 Situations Spéciales</option>
+            </select>
+        </div>
+
+        <div class="loading" id="loading">
+            <p>Génération des audios en cours...</p>
+            <div class="progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <table id="lexiqueTable">
+            <thead>
+                <tr>
+                    <th>Français</th>
+                    <th>Anglais</th>
+                    <th>Allemand</th>
+                    <th>Thaï</th>
+                    <th>Phonétique</th>
+                    <th>Audio FR</th>
+                    <th>Audio TH</th>
+                    <th>Audio EN</th>
+                    <th>Audio DE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr data-category="{{ entry.category or 'other' }}">
+                    <td>{{ entry.fr }}</td>
+                    <td class="english-text">{{ entry.get('en', '-') }}</td>
+                    <td class="german-text">{{ entry.get('de', '-') }}</td>
+                    <td class="thai-text">{{ entry.th }}</td>
+                    <td class="phonetic">{{ entry.phon }}</td>
+                    <td class="audio-cell">
+                        <audio controls preload="none">
+                            <source src="{{ url_for('serve_audio', filename=entry.fr_audio) }}" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
+                    </td>
+                    <td class="audio-cell">
+                        <audio controls preload="none">
+                            <source src="{{ url_for('serve_audio', filename=entry.th_audio) }}" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
+                    </td>
+                    <td class="audio-cell">
+                        {% if entry.get('en_audio') %}
+                        <audio controls preload="none">
+                            <source src="{{ url_for('serve_audio', filename=entry.en_audio) }}" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td class="audio-cell">
+                        {% if entry.get('de_audio') %}
+                        <audio controls preload="none">
+                            <source src="{{ url_for('serve_audio', filename=entry.de_audio) }}" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let allAudios = [];
+        let currentAudioIndex = 0;
+
+        function generateAllAudios() {
+            const loading = document.getElementById('loading');
+            const progressFill = document.getElementById('progressFill');
+            loading.style.display = 'block';
+
+            // Récupérer tous les éléments audio
+            allAudios = Array.from(document.querySelectorAll('audio'));
+            let completed = 0;
+
+            allAudios.forEach((audio, index) => {
+                // Simuler la génération (en réalité, les audios sont déjà générés côté serveur)
+                setTimeout(() => {
+                    completed++;
+                    const progress = (completed / allAudios.length) * 100;
+                    progressFill.style.width = progress + '%';
+
+                    if (completed === allAudios.length) {
+                        loading.style.display = 'none';
+                        alert('Tous les audios ont été générés !');
+                    }
+                }, index * 100);
+            });
+        }
+
+        function playAllAudios() {
+            allAudios = Array.from(document.querySelectorAll('audio'));
+            currentAudioIndex = 0;
+
+            if (allAudios.length === 0) {
+                alert('Aucun audio trouvé. Générez d\'abord les audios.');
+                return;
+            }
+
+            playNextAudio();
+        }
+
+        function playNextAudio() {
+            if (currentAudioIndex < allAudios.length) {
+                const audio = allAudios[currentAudioIndex];
+                audio.play();
+                audio.onended = () => {
+                    currentAudioIndex++;
+                    setTimeout(playNextAudio, 1000); // Pause de 1 seconde entre les audios
+                };
+            } else {
+                alert('Lecture terminée !');
+            }
+        }
+
+        function filterByCategory() {
+            const category = document.getElementById('category').value;
+            const rows = document.querySelectorAll('#lexiqueTable tbody tr');
+
+            rows.forEach(row => {
+                if (category === 'all' || row.dataset.category === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function downloadLexique() {
+            // Créer un lien de téléchargement pour le CSV
+            const link = document.createElement('a');
+            link.href = '/static/lexique.csv'; // On supposera que le CSV est servi statiquement
+            link.download = 'lexique_francais_thai.csv';
+            link.click();
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Marquer les catégories dans les données (côté client pour l'exemple)
+            const rows = document.querySelectorAll('#lexiqueTable tbody tr');
+            rows.forEach((row, index) => {
+                let category = 'other';
+                if (index < 40) category = 'noyau'; // Premiers 40 mots = noyau
+                else if (index < 80) category = 'quotidien';
+                else if (index < 120) category = 'social';
+                else if (index < 160) category = 'travail';
+                else category = 'special';
+                row.dataset.category = category;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leçon - Méthode Français-Thaï Moderne</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .lecon-info {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .card h3 {
+            color: #3498db;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        .translation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .translation-item {
+            flex: 1;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            min-width: 200px;
+        }
+        .french {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+        }
+        .english {
+            background: #f8f9fa;
+            border-left: 4px solid #6c757d;
+        }
+        .german {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        .thai {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .phonetic {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            font-style: italic;
+        }
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        audio {
+            width: 120px;
+            height: 35px;
+        }
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .controls button:hover {
+            background: #2980b9;
+        }
+        .progress {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .practice-mode {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .practice-mode h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .hidden-text {
+            background: #6c757d;
+            color: #6c757d;
+            border-radius: 3px;
+            padding: 2px 4px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .hidden-text:hover {
+            background: #5a6268;
+        }
+        .hidden-text.revealed {
+            background: transparent;
+            color: inherit;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Leçon {{ start + 1 }} à {{ end }}</h1>
+
+        <div class="lecon-info">
+            <p><strong>Nombre de mots dans cette leçon :</strong> {{ entries|length }}</p>
+            <p><strong>Progression :</strong> {{ (end / 200 * 100)|round(1) }}% du lexique complet</p>
+        </div>
+
+        <div class="practice-mode">
+            <h3>🔄 Mode Entraînement</h3>
+            <p>Cliquez sur les textes masqués pour les révéler et pratiquer votre mémorisation !</p>
+        </div>
+
+        {% for entry in entries %}
+        <div class="card">
+            <h3>Mot #{{ loop.index + start }}</h3>
+
+            <div class="translation-row">
+                <div class="translation-item french">
+                    <strong>Français:</strong><br>
+                    <span class="hidden-text" onclick="reveal(this)">{{ entry.fr }}</span>
+                </div>
+                <div class="translation-item thai">
+                    <strong>Thaï:</strong><br>
+                    <span class="hidden-text" onclick="reveal(this)">{{ entry.th }}</span>
+                </div>
+            </div>
+
+            <div class="translation-row">
+                <div class="translation-item phonetic">
+                    <strong>Phonétique:</strong><br>
+                    {{ entry.phon }}
+                </div>
+                {% if entry.get('en') %}
+                <div class="translation-item english">
+                    <strong>Anglais:</strong><br>
+                    <span class="hidden-text" onclick="reveal(this)">{{ entry.en }}</span>
+                </div>
+                {% endif %}
+                {% if entry.get('de') %}
+                <div class="translation-item german">
+                    <strong>Allemand:</strong><br>
+                    <span class="hidden-text" onclick="reveal(this)">{{ entry.de }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="audio-controls">
+                <div>
+                    <small>Français</small><br>
+                    <audio controls preload="none">
+                        <source src="{{ url_for('serve_audio', filename=entry.fr_audio) }}" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l'audio.
+                    </audio>
+                </div>
+                <div>
+                    <small>Thaï</small><br>
+                    <audio controls preload="none">
+                        <source src="{{ url_for('serve_audio', filename=entry.th_audio) }}" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l'audio.
+                    </audio>
+                </div>
+                {% if entry.get('en_audio') %}
+                <div>
+                    <small>Anglais</small><br>
+                    <audio controls preload="none">
+                        <source src="{{ url_for('serve_audio', filename=entry.en_audio) }}" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l'audio.
+                    </audio>
+                </div>
+                {% endif %}
+                {% if entry.get('de_audio') %}
+                <div>
+                    <small>Allemand</small><br>
+                    <audio controls preload="none">
+                        <source src="{{ url_for('serve_audio', filename=entry.de_audio) }}" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l'audio.
+                    </audio>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="controls">
+            <button onclick="playAllAudios('fr')">▶️ Écouter tout en Français</button>
+            <button onclick="playAllAudios('th')">▶️ Écouter tout en Thaï</button>
+            <button onclick="window.history.back()">⬅️ Retour</button>
+            {% if end < 200 %}
+            <button onclick="window.location.href='/lecon/{{ end }}/{{ end + 20 }}'">Suivant (20 mots) ➡️</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        let allAudios = { fr: [], th: [], en: [], de: [] };
+        let currentAudioIndex = 0;
+        let currentLang = '';
+
+        function reveal(element) {
+            element.classList.add('revealed');
+        }
+
+        function playAllAudios(lang) {
+            // Récupérer tous les éléments audio de la langue choisie
+            const audioElements = document.querySelectorAll(`audio[source*="${lang}_"]`);
+            if (audioElements.length === 0) {
+                alert(`Aucun audio ${lang} trouvé dans cette leçon.`);
+                return;
+            }
+
+            currentAudioIndex = 0;
+            currentLang = lang;
+            allAudios[lang] = Array.from(audioElements);
+
+            playNextAudio();
+        }
+
+        function playNextAudio() {
+            if (currentAudioIndex < allAudios[currentLang].length) {
+                const audio = allAudios[currentLang][currentAudioIndex];
+                audio.play();
+                audio.onended = () => {
+                    currentAudioIndex++;
+                    setTimeout(playNextAudio, 1000); // Pause de 1 seconde entre les audios
+                };
+            } else {
+                alert(`Lecture en ${currentLang === 'fr' ? 'français' : currentLang === 'th' ? 'thaï' : currentLang === 'en' ? 'anglais' : 'allemand'} terminée !`);
+            }
+        }
+
+        // Initialiser les contrôles audio
+        document.addEventListener('DOMContentLoaded', function() {
+            // Masquer automatiquement certains textes pour l'entraînement
+            const hiddenElements = document.querySelectorAll('.thai .hidden-text');
+            // Garder 30% des mots thaï visibles pour l'aide
+            hiddenElements.forEach((el, index) => {
+                if (index % 3 !== 0) { // Masquer 2/3 des mots thaï
+                    // Le texte reste masqué
+                }
+            });
+        });
+    </script>
+</body>
+</html>

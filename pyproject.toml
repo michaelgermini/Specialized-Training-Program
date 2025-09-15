@@ -1,0 +1,135 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "francais-thai-moderne"
+version = "1.2.0"
+description = "Application web moderne pour apprendre le français-thaï avec génération automatique d'audios"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Michael Germini", email = "michael@germini.info"},
+]
+maintainers = [
+    {name = "Michael Germini", email = "michael@germini.info"},
+]
+keywords = [
+    "education",
+    "thai",
+    "french",
+    "language",
+    "learning",
+    "audio",
+    "gtts",
+    "flask",
+    "multilingual",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+dependencies = [
+    "Flask>=2.3.0",
+    "gTTS>=2.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "flake8>=3.9",
+    "black>=21.0",
+    "mypy>=0.900",
+    "isort>=5.10",
+]
+docs = [
+    "sphinx>=4.0",
+    "sphinx-rtd-theme>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/michaelgermini/Specialized-Training-Program"
+Documentation = "https://github.com/michaelgermini/Specialized-Training-Program#readme"
+Repository = "https://github.com/michaelgermini/Specialized-Training-Program.git"
+Issues = "https://github.com/michaelgermini/Specialized-Training-Program/issues"
+Changelog = "https://github.com/michaelgermini/Specialized-Training-Program/blob/main/CHANGELOG.md"
+
+[project.scripts]
+francais-thai = "app:main"
+
+[tool.setuptools]
+packages = ["."]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"" = [
+    "templates/*.html",
+    "static/*",
+    "*.csv",
+    "*.md",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["francais_thai_moderne"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "gtts.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=francais_thai_moderne --cov-report=html --cov-report=term-missing"
+testpaths = [
+    "tests",
+]

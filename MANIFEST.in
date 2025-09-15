@@ -1,0 +1,26 @@
+# Include all files
+include *.txt
+include *.md
+include *.csv
+include *.py
+include LICENSE
+
+# Include templates and static files
+recursive-include templates *.html
+recursive-include static *
+
+# Include configuration files
+include config.py
+include .gitignore
+
+# Exclude generated audio files (they will be generated at runtime)
+exclude static/audio/*.mp3
+exclude static/audio/*.wav
+
+# Exclude IDE and OS files
+exclude .vscode/
+exclude .idea/
+exclude __pycache__/
+exclude *.pyc
+exclude .DS_Store
+exclude Thumbs.db

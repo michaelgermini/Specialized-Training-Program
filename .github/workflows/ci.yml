@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Test application startup
+      run: |
+        python test_app.py
+
+    - name: Test CSV format
+      run: |
+        python -c "import csv; csv.DictReader(open('lexique_complet.csv')); print('✅ CSV format valid')"
+
+    - name: Check code style
+      run: |
+        python -c "import ast; ast.parse(open('app.py').read()); print('✅ Python syntax valid')"
