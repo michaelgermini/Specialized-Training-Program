@@ -7,6 +7,12 @@
 
 Un logiciel Python moderne pour apprendre le français-thaï avec génération automatique d'audios et interface web interactive.
 
+## 🖼️ Aperçu
+
+![Page d'accueil de l'application](screenshots/home.png)
+
+*L'interface moderne et intuitive de Specialized-Training-Program*
+
 ## ✨ Fonctionnalités
 
 - **🎵 Génération automatique d'audios** : Création d'audios pour le français, thaï, anglais et allemand

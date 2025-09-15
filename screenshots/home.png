@@ -1,0 +1,15 @@
+This is a placeholder file. Replace this with your actual home.png screenshot.
+
+To create the screenshot:
+1. Start the application: python run.py
+2. Open http://127.0.0.1:5001 in your browser
+3. Take a full-page screenshot
+4. Save it as screenshots/home.png
+5. Commit and push the changes
+
+The screenshot should show:
+- The main interface with the title
+- Statistics cards (321 words, 5 categories, 80% coverage)
+- Sample translation table
+- Audio control buttons
+- Category filters
