@@ -106,6 +106,31 @@
             font-style: italic;
             color: #7f8c8d;
             font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        .phonetic-highlight {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: #856404;
+            font-weight: bold;
+            animation: phonetic-glow 1.5s infinite alternate;
+        }
+        @keyframes phonetic-glow {
+            0% {
+                background-color: #fff3cd;
+                box-shadow: 0 0 5px #ffc107;
+            }
+            100% {
+                background-color: #ffeaa7;
+                box-shadow: 0 0 15px #ffc107;
+            }
+        }
+        .audio-playing {
+            background-color: #f8f9ff !important;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
         }
         .thai-text {
             font-size: 1.1em;
@@ -296,7 +321,7 @@
                         </div>
                     </td>
                     <td class="language-cell">
-                        <div class="text-content phonetic">{{ entry.phon }}</div>
+                        <div class="text-content phonetic" id="phonetic-{{ loop.index }}">{{ entry.phon }}</div>
                     </td>
                 </tr>
                 {% endfor %}
@@ -378,6 +403,50 @@
             link.click();
         }
 
+        // Fonction pour gérer le surlignement phonétique
+        function highlightPhonetic(rowIndex, highlight) {
+            const phoneticElement = document.getElementById(`phonetic-${rowIndex}`);
+            if (phoneticElement) {
+                if (highlight) {
+                    phoneticElement.classList.add('phonetic-highlight');
+                    // Faire défiler vers l'élément si nécessaire
+                    phoneticElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    phoneticElement.classList.remove('phonetic-highlight');
+                }
+            }
+        }
+
+        // Fonction pour gérer les événements audio
+        function setupAudioListeners() {
+            const audioElements = document.querySelectorAll('audio');
+            audioElements.forEach((audio, index) => {
+                // Trouver la ligne parente pour identifier l'index
+                let rowElement = audio.closest('tr');
+                let rowIndex = Array.from(rowElement.parentElement.children).indexOf(rowElement) + 1;
+
+                audio.addEventListener('play', function() {
+                    // Surligner la prononciation phonétique thaï
+                    highlightPhonetic(rowIndex, true);
+
+                    // Ajouter un effet visuel à la ligne
+                    rowElement.classList.add('audio-playing');
+                });
+
+                audio.addEventListener('pause', function() {
+                    // Retirer le surlignement
+                    highlightPhonetic(rowIndex, false);
+                    rowElement.classList.remove('audio-playing');
+                });
+
+                audio.addEventListener('ended', function() {
+                    // Retirer le surlignement
+                    highlightPhonetic(rowIndex, false);
+                    rowElement.classList.remove('audio-playing');
+                });
+            });
+        }
+
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
             // Marquer les catégories dans les données (côté client pour l'exemple)
@@ -391,6 +460,9 @@
                 else category = 'special';
                 row.dataset.category = category;
             });
+
+            // Configurer les listeners audio
+            setupAudioListeners();
         });
     </script>
 </body>
