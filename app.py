@@ -24,12 +24,12 @@ def load_lexique():
             reader = csv.DictReader(f)
             for row in reader:
                 # Créer des noms de fichiers uniques basés sur le contenu
-                fr_hash = hashlib.md5(row["fr"].encode()).hexdigest()[:8]
-                th_hash = hashlib.md5(row["th"].encode()).hexdigest()[:8]
-                en_hash = hashlib.md5(row.get("en", "").encode()).hexdigest()[:8] if row.get("en") else ""
-                de_hash = hashlib.md5(row.get("de", "").encode()).hexdigest()[:8] if row.get("de") else ""
-                es_hash = hashlib.md5(row.get("es", "").encode()).hexdigest()[:8] if row.get("es") else ""
-                it_hash = hashlib.md5(row.get("it", "").encode()).hexdigest()[:8] if row.get("it") else ""
+                fr_hash = hashlib.md5((row["fr"] or "").encode()).hexdigest()[:8]
+                th_hash = hashlib.md5((row["th"] or "").encode()).hexdigest()[:8]
+                en_hash = hashlib.md5((row.get("en") or "").encode()).hexdigest()[:8] if row.get("en") else ""
+                de_hash = hashlib.md5((row.get("de") or "").encode()).hexdigest()[:8] if row.get("de") else ""
+                es_hash = hashlib.md5((row.get("es") or "").encode()).hexdigest()[:8] if row.get("es") else ""
+                it_hash = hashlib.md5((row.get("it") or "").encode()).hexdigest()[:8] if row.get("it") else ""
 
                 entry = {
                     "fr": row["fr"],
@@ -133,12 +133,15 @@ def serve_audio(filename):
     return send_from_directory(AUDIO_DIR, filename)
 
 if __name__ == "__main__":
+    # Vérifier la configuration
+    print(f"🔧 Configuration chargée: HOST={HOST}, PORT={PORT}, DEBUG={DEBUG}")
+
     # Charger le lexique sans générer tous les audios au démarrage
     load_lexique()
-    print(f"Chargement de {len(entries)} entrées du lexique...")
+    print(f"📚 Chargement de {len(entries)} entrées du lexique...")
 
     # Démarrer immédiatement le serveur
     print(f"🚀 Démarrage du serveur sur {HOST}:{PORT}...")
     print("🎵 Les audios seront générés à la demande lors de la première visite")
-    print("📱 Interface accessible sur : http://127.0.0.1:5001")
+    print(f"📱 Interface accessible sur : http://127.0.0.1:{PORT}")
     app.run(debug=DEBUG, host=HOST, port=PORT)
