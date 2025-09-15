@@ -1065,18 +1065,27 @@
                 });
 
                 audio.addEventListener('play', function() {
+                    console.log('🎵 AUDIO PLAY EVENT TRIGGERED!');
                     // Détecter la langue de l'audio et illuminer le texte approprié
                     const audioFilename = audio.src.split('/').pop();
                     console.log('🎵 Audio playing:', audioFilename);
                     console.log('🎯 Row element:', rowElement);
+                    console.log('🎯 Row element exists:', !!rowElement);
+                    console.log('🎯 Row innerHTML:', rowElement ? rowElement.innerHTML.substring(0, 200) + '...' : 'N/A');
 
                     // Illuminer le texte selon la langue de l'audio
                     if (audioFilename.startsWith('fr_')) {
                         // Audio français : illuminer le texte français
+                        console.log('🔍 Looking for French element...');
                         const frenchElement = rowElement.querySelector('.lang-fr .text-content');
+                        console.log('🔍 French element found:', frenchElement);
+                        console.log('🔍 French element text:', frenchElement ? frenchElement.textContent : 'N/A');
                         if (frenchElement) {
                             frenchElement.classList.add('language-highlight');
                             console.log('✅ French text highlighted');
+                            console.log('✅ French element classes after:', frenchElement.className);
+                        } else {
+                            console.log('❌ French element not found');
                         }
                     } else if (audioFilename.startsWith('en_')) {
                         // Audio anglais : illuminer le texte anglais
@@ -1111,18 +1120,30 @@
                         console.log('🔍 Looking for Thai phonetic elements...');
                         const phoneticElement = rowElement.querySelector('.lang-phon .phonetic');
                         console.log('🔍 Primary phonetic selector result:', phoneticElement);
+                        console.log('🔍 Phonetic element text:', phoneticElement ? phoneticElement.textContent : 'N/A');
                         if (phoneticElement) {
                             phoneticElement.classList.add('phonetic-highlight');
                             console.log('✅ Thaï phonetic highlighted');
+                            console.log('✅ Phonetic element classes after:', phoneticElement.className);
                         } else {
                             // Essayer d'autres sélecteurs
                             const altPhonetic = rowElement.querySelector('.phonetic');
                             console.log('🔍 Alternative phonetic selector result:', altPhonetic);
+                            console.log('🔍 Alt phonetic element text:', altPhonetic ? altPhonetic.textContent : 'N/A');
                             if (altPhonetic) {
                                 altPhonetic.classList.add('phonetic-highlight');
                                 console.log('✅ Thaï phonetic highlighted (alt selector)');
+                                console.log('✅ Alt phonetic element classes after:', altPhonetic.className);
                             } else {
                                 console.log('❌ No phonetic element found in row');
+                                // Lister tous les éléments qui pourraient contenir du texte phonétique
+                                const allTextElements = rowElement.querySelectorAll('*');
+                                console.log('🔍 All text elements in row:');
+                                allTextElements.forEach((el, i) => {
+                                    if (el.textContent && el.textContent.trim()) {
+                                        console.log(`  ${i}: ${el.tagName}.${el.className} = "${el.textContent.trim()}"`);
+                                    }
+                                });
                             }
                         }
                     } else if (audioFilename.startsWith('zh_')) {
@@ -1131,25 +1152,40 @@
                         const chineseElement = rowElement.querySelector('.lang-zh .chinese-text');
                         const pinyinElement = rowElement.querySelector('.lang-pinyin .pinyin');
 
+                        console.log('🔍 Chinese element found:', chineseElement);
+                        console.log('🔍 Chinese element text:', chineseElement ? chineseElement.textContent : 'N/A');
+                        console.log('🔍 Pinyin element found:', pinyinElement);
+                        console.log('🔍 Pinyin element text:', pinyinElement ? pinyinElement.textContent : 'N/A');
+
                         if (chineseElement) {
                             chineseElement.classList.add('chinese-highlight');
                             console.log('✅ Chinese text highlighted');
+                            console.log('✅ Chinese element classes after:', chineseElement.className);
                         } else {
                             const altChinese = rowElement.querySelector('.chinese-text');
+                            console.log('🔍 Alternative chinese selector result:', altChinese);
                             if (altChinese) {
                                 altChinese.classList.add('chinese-highlight');
                                 console.log('✅ Chinese text highlighted (alt selector)');
+                                console.log('✅ Alt chinese element classes after:', altChinese.className);
+                            } else {
+                                console.log('❌ No chinese element found in row');
                             }
                         }
 
                         if (pinyinElement) {
                             pinyinElement.classList.add('pinyin-highlight');
                             console.log('✅ Pinyin highlighted');
+                            console.log('✅ Pinyin element classes after:', pinyinElement.className);
                         } else {
                             const altPinyin = rowElement.querySelector('.pinyin');
+                            console.log('🔍 Alternative pinyin selector result:', altPinyin);
                             if (altPinyin) {
                                 altPinyin.classList.add('pinyin-highlight');
                                 console.log('✅ Pinyin highlighted (alt selector)');
+                                console.log('✅ Alt pinyin element classes after:', altPinyin.className);
+                            } else {
+                                console.log('❌ No pinyin element found in row');
                             }
                         }
                     } else {
@@ -1188,8 +1224,11 @@
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM Content Loaded - Starting initialization...');
+
             // Marquer les catégories dans les données (côté client pour l'exemple)
             const rows = document.querySelectorAll('#lexiqueTable tbody tr');
+            console.log(`📊 Found ${rows.length} table rows`);
             rows.forEach((row, index) => {
                 let category = 'other';
                 if (index < 40) category = 'noyau'; // Premiers 40 mots = noyau
@@ -1201,11 +1240,32 @@
             });
 
             // Configurer les listeners audio
+            console.log('🎵 Setting up audio listeners...');
             setupAudioListeners();
+            console.log('✅ Audio listeners setup complete');
 
             // Charger les préférences de langues
             loadLanguagePreferences();
+
+            console.log('🎉 Page initialization complete!');
         });
+
+        // Test pour vérifier si les event listeners fonctionnent
+        window.testAudioHighlight = function() {
+            console.log('🧪 Testing audio highlight functionality...');
+            const audioElements = document.querySelectorAll('audio');
+            console.log(`🎵 Found ${audioElements.length} audio elements for testing`);
+
+            if (audioElements.length > 0) {
+                const firstAudio = audioElements[0];
+                console.log('🎵 Testing first audio element:', firstAudio.src);
+
+                // Simuler un événement play
+                const playEvent = new Event('play');
+                firstAudio.dispatchEvent(playEvent);
+                console.log('🎵 Play event dispatched for testing');
+            }
+        };
     </script>
 </body>
 </html>
